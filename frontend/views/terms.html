@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous ">
+    </script>
+  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+  <link rel="shortcut icon" href="../assets/CN_LOGO.png" />
+  <link rel="stylesheet" href="../css/main.css">
+  <title>Creator Nation - Terms of Service</title>
+</head>
+
+<body>
+  <script>
+    Moralis.initialize("rDecx1uN0CRZ8QWRxqjDeWEdc9P9ozhtp5xJjH5v"); // APP ID
+    Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
+    async function logoutNow() {
+
+      await Moralis.User.logOut();
+
+      window.location.assign("../index.html");
+    }
+  </script>
+
+  <!-- Navbar Start -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" aria-current="page" href="../index.html">
+        <img src="../assets/CN_LOGO.png" alt="" width="50" height="50" class="d-inline-block align-text-middle">
+      </a>
+      <div class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search by Creator" id="searchbar">
+        <a href="javascript:searchUser()"><input type="submit" value="Search" class="btn btn-outline-danger" /></a>
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="how-it-works.html">How it works</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="create.html">Create</a>
+          </li>
+        </ul>
+      </div>
+
+      <div id="signoutButton">
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Profile
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a href="settings.html" class="dropdown-item">Creations</a></li>
+            <li><a href="settings.html" class="dropdown-item">Owned Items</a></li>
+            <li><a href="settings.html" class="dropdown-item">Earnings</a></li>
+            <li><a href="profilesettings.html" class="dropdown-item">Profile Settings</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a href="javascript:logoutNow()" class="dropdown-item">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+      <div id="signinButton">
+        <a href="signin.html" id="signinProfileButton" type="button" class="btn btn-outline-danger">Sign In</a>
+      </div>
+    </div>
+    </div>
+  </nav>
+  <!-- Navbar End -->
+
+
+  <div class="row row-cols-1 row-cols-md-5 g-5" id="search_results" style="padding:20px;">
+  </div>
+  <br><br>
+  <!-- Form Start -->
+  <div class="terms">
+    <h1 style="text-align: center; padding-top: 20px;">Terms of Service</h1>
+    <p class="terms_serv">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nisi nulla, congue a odio sit
+      amet, gravida molestie felis. Nullam sed arcu nulla. Phasellus pellentesque, nisl a venenatis tempor, nisi nibh
+      placerat dolor, in rutrum nulla erat et purus. In a tempus neque. Nunc finibus pellentesque eros a interdum. Morbi
+      ac lectus et nunc vehicula maximus quis ut mauris. Mauris quam ante, aliquam in blandit dignissim, pharetra nec
+      purus. Fusce scelerisque accumsan lobortis. Suspendisse faucibus lorem sit amet purus ornare placerat. In dictum
+      ac mauris ac tempor. Cras a massa dui. Nunc imperdiet arcu vitae ligula suscipit aliquet. Sed euismod sed odio
+      viverra accumsan.
+
+      Praesent vel nisl nec odio ultrices semper in quis turpis. Pellentesque habitant morbi tristique senectus et netus
+      et malesuada fames ac turpis egestas. Ut hendrerit neque non pellentesque viverra. Mauris a condimentum odio, eget
+      congue lacus. Donec facilisis iaculis mauris in auctor. Suspendisse condimentum pellentesque mi, eget fringilla
+      elit dignissim sed. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+      Cras est orci, eleifend id tellus vitae, ultricies malesuada justo.
+
+      Vivamus eu lorem orci. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent eget nulla at tellus
+      imperdiet iaculis. Quisque lacinia sodales sem, efficitur maximus leo aliquam at. Cras posuere lacinia orci, eget
+      maximus libero volutpat et. Integer molestie, nisi eget sagittis sagittis, dolor est porttitor turpis, non iaculis
+      nisl quam at massa. Proin ultrices, metus tempor mollis lacinia, turpis odio ultrices purus, ac mollis massa justo
+      at velit. Maecenas lobortis orci sit amet neque venenatis, eget dapibus nibh ultrices. Suspendisse nunc tellus,
+      rutrum id cursus nec, feugiat ac quam. Aliquam in tellus justo.
+
+      In a nulla ante. Sed sollicitudin velit est, vel semper dui pretium nec. Morbi auctor congue volutpat. Maecenas
+      sagittis iaculis nunc eget aliquam. Vestibulum sit amet venenatis elit. Vestibulum mauris tellus, interdum mollis
+      imperdiet quis, ultricies in augue. Nullam feugiat tortor dui, ut vulputate mi vehicula id. Aenean porttitor
+      volutpat pellentesque. Suspendisse ultricies ex ut blandit vulputate. Vestibulum ante ipsum primis in faucibus
+      orci luctus et ultrices posuere cubilia curae; Proin viverra et mi ut maximus. Maecenas at ligula porttitor,
+      faucibus eros bibendum, bibendum nunc.
+
+      Pellentesque maximus nibh nisl, quis suscipit massa commodo eget. Sed id lobortis eros. Nunc posuere ornare ante a
+      placerat. Curabitur vel sollicitudin quam, vitae euismod eros. Cras et orci non erat pretium bibendum a quis urna.
+      Phasellus efficitur, augue at convallis auctor, libero ligula ultricies ex, et tincidunt diam metus nec est.
+      Aliquam suscipit lorem eget ipsum efficitur suscipit. Aenean at laoreet nulla. Curabitur feugiat cursus mauris ut
+      fermentum. Sed blandit, risus vitae ullamcorper ultricies, orci nunc facilisis lorem, quis semper augue tortor
+      euismod tellus. Nam et velit odio. Ut et elementum mi. Donec fermentum sollicitudin mattis. Phasellus feugiat
+      felis et velit tristique tristique. Integer vitae tincidunt dolor.</p>
+
+
+  </div>
+
+  <!-- Form End -->
+
+
+  <!-- Footer Start -->
+  <footer class="footer ">
+    <div class="footer-container ">
+      <div class="footer-row ">
+        <div class="footer-col ">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="aboutus.html ">About us</a></li>
+            <li><a href="https://creatornationofficial.freshteam.com/jobs ">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col ">
+          <h4>resources</h4>
+          <ul>
+            <li><a href="privacy.html ">Privacy Policy</a></li>
+            <li><a href="terms.html ">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col ">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="https://creatornation.freshdesk.com/support/tickets/new ">Contact Us</a></li>
+            <li><a href="https://creatornation.freshdesk.com/support/tickets/new ">Feature Requests</a></li>
+          </ul>
+        </div>
+        <div class="footer-col ">
+          <h4>follow us</h4>
+          <div class="social-links ">
+            <a href="# "><i class="fab fa-facebook-f "></i></a>
+            <a href="# "><i class="fab fa-twitter "></i></a>
+            <a href="# "><i class="fab fa-instagram "></i></a>
+            <a href="# "><i class="fab fa-linkedin-in "></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Footer End -->
+  <script>
+    window.fwSettings = {
+      'widget_id': 70000002336
+    };
+    ! function () {
+      if ("function " != typeof window.FreshworksWidget) {
+        var n = function () {
+          n.q.push(arguments)
+        };
+        n.q = [], window.FreshworksWidget = n
+      }
+    }()
+  </script>
+  <script>
+    const user = Moralis.User.current();
+    if (user) {
+      document.getElementById("signoutButton").style.display = "block";
+      document.getElementById("signinButton").style.display = "none";
+    } else {
+
+      document.getElementById("signinButton").style.display = "block";
+      document.getElementById("signoutButton").style.display = "none";
+    }
+  </script>
+  <script type='text/javascript' src='https://widget.freshworks.com/widgets/70000002336.js' async defer></script>
+  <script src="../javascript/search.js "></script>
+
+</body>
+
+</html>

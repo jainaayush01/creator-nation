@@ -1,0 +1,165 @@
+// SPDX-License-Identifier:MIT
+
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+contract MyToken is ERC1155, Ownable,ReentrancyGuard {
+    
+    // Variables
+     using Counters for Counters.Counter;
+        Counters.Counter public _tokenIds;
+        address public pool;
+        string public contractName;
+        
+        
+        struct Creator{
+            address creatorAddress;
+            string name;
+            uint registeredDate;
+            bool registrationStatus;
+        }
+        
+        mapping (uint =>uint) public tokensAvailable;
+        
+        struct User{
+            address creatorAddress;
+            string name;
+            uint registeredDate;
+            bool registrationStatus;
+            
+        }
+        
+         mapping(address=>Creator) public registeredCreator;
+         mapping(address=>User) public registeredUser;
+         
+         uint percentageOfSale;
+         
+         struct Token{
+             uint id;
+             address creator;
+             string tokenName;
+             uint cost;
+             uint totalSupply;
+             uint createdTime;
+         }
+         mapping(uint=>Token) public idToToken;
+         address [] public registeredCreators;
+         address [] public registeredUsers;
+         mapping(address=>Token) public creatorTokens;
+  
+    constructor( string memory collectionName, uint percent) ERC1155(collectionName) {
+        pool= msg.sender;
+        percentageOfSale=percent;
+        contractName=collectionName;
+    }
+    
+    
+    
+    // Modifiers
+    modifier onlyCreator(){
+        require(registeredCreator[msg.sender].registrationStatus==true, "You have to be a creator!");
+        _;
+    }
+    
+    
+    // Events
+    event onMint(address minter, string tokenName, uint tokenID, uint cost, uint totalSupply);
+    
+    
+    // Functions
+    function registerCreator(address creatorAddress, string memory name) public onlyOwner returns(bool){
+        Creator memory _creator;
+        _creator= Creator(creatorAddress,name,block.timestamp,true);
+        registeredCreator[creatorAddress]=_creator;
+        registeredCreators.push(creatorAddress);
+        return true;
+    }
+    
+    // function registerUser(address userAddress, string memory name)public onlyOwner returns (bool){
+    //      User memory _user;
+    //     _user= User(userAddress,name,block.timestamp,true);
+    //     registeredUser[userAddress]=_user;
+    //     registeredUsers.push(userAddress);
+    //     return true;
+    // }
+
+    function setURI(string memory newuri) private {
+        _setURI(newuri);
+        _tokenIds.increment();
+    }
+
+    function mint (string memory tokenName,uint256 cost, uint total, string memory uri)
+        public
+        onlyCreator
+    {
+        require(creatorTokens[msg.sender].totalSupply==0,"You already have tokens!");
+        Token memory _token;
+        
+        _token=Token(
+            _tokenIds.current()+1,
+            msg.sender,
+            tokenName,
+            cost,
+            total,
+            block.timestamp
+        );
+        
+        idToToken[_tokenIds.current()+1]= _token;
+        creatorTokens[msg.sender]=_token;
+        setURI(uri);
+        uint id= _tokenIds.current();
+        _mint(msg.sender, id, total, "");
+         setApprovalForAll(address(this),true);
+         tokensAvailable[id]=total;
+         emit onMint(msg.sender,tokenName, id, cost, total );
+        
+        
+    }
+
+    function costOfTokenInWei(uint _id) public view returns(uint){
+        return idToToken[_id].cost*10**18;
+    }
+
+
+    
+    function contractBalance()public view returns(uint){
+        return address(this).balance;
+    }
+    
+    // Marketplace Functions
+    
+    function buyTokens(uint _tokenId, uint _amount) payable public returns(bool) {
+        require(msg.value >= idToToken[_tokenId].cost* _amount*10**18,"The amount sent should be equal to token's value");
+        uint amountOfTokensLeft= tokensAvailable[_tokenId];
+        address tokenCreator= idToToken[_tokenId].creator;
+        require(_amount<=amountOfTokensLeft,"Tokens not available");
+        
+        uint amountToTransferToCreator=(msg.value*(100-percentageOfSale))/100 ;
+         uint amountToTransferToPool=(msg.value*percentageOfSale)/100 ;
+        
+        payable(tokenCreator).transfer(amountToTransferToCreator);
+            payable(pool).transfer(amountToTransferToPool);
+        
+            _safeTransferFrom(tokenCreator,msg.sender,_tokenId,_amount,"");
+            tokensAvailable[_tokenId]-=_amount;
+            
+        return true;
+        }
+        
+        
+        // Fetch my NFTs
+        
+        function fetchMyNFTs() public view returns ( Token[] memory){
+            
+        }
+        
+        
+    
+    function getCreators() public view returns (uint) {
+        return registeredCreators.length;
+    }
+    

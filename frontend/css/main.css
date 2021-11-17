@@ -1,0 +1,458 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+*{
+
+    font-family: 'Lato','Arial', serif;
+  }
+/* Homepage Start */
+#searchbar
+    {
+        width:500px !important;
+        border-radius: 30px 30px 30px 30px;
+    }
+
+#cardcontainer
+    {
+        margin-top: auto;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        object-fit: cover;
+    }
+#individualcard
+    {
+        border-radius: 30px 30px 30px 30px;
+        object-fit: cover;
+    }
+
+.tokenTitleHome
+    {
+        margin-top: 20px;
+        margin-left: 25px;
+    }
+.tokenCardsHome
+{
+    align-items: center;
+}
+h2{
+    text-align: center;
+    text-decoration: none;
+
+}
+
+/* Homepage End */
+
+
+
+/* Footer Start */
+.footer-container
+    {
+        max-width: 1170px;
+        margin:auto;
+    }
+.footer-row
+    {
+        display: flex;
+        flex-wrap: wrap;
+    }
+.footer
+    {
+        background-color: white;
+        padding: 70px 0;
+        margin-top: 20px;
+    }
+.footer-col
+    {
+       width: 25%;
+       padding: 0 15px;
+    }
+.footer-col h4
+    {
+        font-size: 18px;
+        color: black;
+        text-transform: capitalize;
+        margin-bottom: 35px;
+        font-weight: 500;
+        position: relative;
+    }
+.footer-col h4::before
+    {
+        content: '';
+        position: absolute;
+        left:0;
+        bottom: -10px;
+        background: linear-gradient(-135deg, #c850c1, #4158d1);
+        height: 2px;
+        box-sizing: border-box;
+        width: 50px;
+    }
+.footer-col ul li:not(:last-child){
+        margin-bottom: 10px;
+    }
+.footer-col ul li a
+    {
+        font-size: 16px;
+        text-transform: capitalize;
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 300;
+        color: black;
+        display: block;
+        transition: all 0.3s ease;
+    }
+.footer-col ul li a:hover
+    {
+        color: black;
+        padding-left: 8px;
+    }
+.footer-col .social-links a
+    {
+        display: inline-block;
+        height: 40px;
+        width: 40px;
+        background-color: white;
+        margin:0 10px 10px 0;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 50%;
+        color: rgb(0, 0, 0);
+        transition: all 0.5s ease;
+    }
+.footer-col .social-links a:hover
+    {
+        color: blue;
+        background-color: whitesmoke;
+    }
+    
+/*responsive*/
+@media(max-width: 767px)
+    {
+      .footer-col{
+        width: 50%;
+        margin-bottom: 30px;
+    }
+    }
+@media(max-width: 574px)
+    {
+      .footer-col{
+        width: 100%;
+    }
+    }
+    
+/* Footer End */  
+
+/* Create Page Card Start */
+#create_container
+    {
+        margin-top: auto;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        object-fit: cover;
+    }
+
+    #create_type
+    {
+        border-radius: 30px 30px 30px 30px;
+        object-fit: cover;
+        text-align: center;
+        height: auto;
+        width: auto;
+    }
+    .card_dec 
+    {
+        color: black;
+        text-decoration: none;
+    }
+    a:hover, a:visited, a:link, a:active
+    {
+    text-decoration: none;
+    }
+/* Create Page Card End */
+
+
+/* Upload box Start */
+
+.files input {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    padding: 120px 0px 85px 35%;
+    text-align: center !important;
+    margin: 0;
+    width: 100% !important;
+}
+.files input:focus{     outline: 2px dashed #92b0b3;  outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear; border:1px solid #92b0b3;
+ }
+.files{ position:relative}
+.files:after {  pointer-events: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 50px;
+    right: 0;
+    height: 56px;
+    content: "";
+    background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
+    display: block;
+    margin: 0 auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    align-items: center;
+}
+.color input{ background-color:#f1f1f1;}
+.files:before {
+    position: absolute;
+    bottom: 10px;
+    left: 0;  pointer-events: none;
+    width: 100%;
+    right: 0;
+    height: 57px;
+    content: " or drag it here. ";
+    display: block;
+    margin: 0 auto;
+    color: #2ea591;
+    font-weight: 600;
+    text-transform: capitalize;
+    text-align: center;
+    align-items: center;
+}
+/* Upload box End */
+
+
+/* About us Start */
+.aboutus {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+p.about_us{
+    margin-top: 50px;
+}
+/* About us End */
+
+/* Privacy Start */
+.privacy {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+p.privacy_pol{
+    margin-top: 50px;
+}
+/* Privacy End */
+
+/* Terms Start */
+.terms {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+p.terms_serv{
+    margin-top: 50px;
+}
+/* Terms End */
+
+/* Membership Form Start */
+.memform {
+    margin-left: 300px;
+    margin-right: 300px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: gainsboro;
+    padding: 20px;
+}
+/* Membership Form End */
+
+/* Connect Form Start */
+.connectform {
+    margin-left: 300px;
+    margin-right: 300px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: gainsboro;
+    padding: 20px;
+}
+/* Connect Form End */
+
+/* PROFILE SCREEN START */
+
+
+.cn-profile-image
+{
+    margin-top: -70px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+}
+.cn-cover-image
+{
+    width: 100%;
+    height: 312px;
+    object-fit: cover;
+}
+.cnProfile-text
+{
+  color: black;
+  text-align: center;
+}
+.profile-tabs-container
+{
+    text-align: center;
+    color: black;
+    margin-left: auto;
+}
+.profile-tabs-container ul li
+{
+    display: table;
+    margin: 50px auto;
+    font-size: large;
+    border-radius: 10px;  
+}
+.token-card
+{
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+    width: 400px;
+    height: auto;
+    margin: auto;
+    border-width: 2px;
+    border-style: solid;
+    border-color: gainsboro;
+    border-radius: 10px;
+    padding: 20px;
+
+}
+.token-card-text li
+{
+   
+    list-style-type:none;
+    padding-left: 0pt;
+}
+.token-img-top
+{
+    height: 120px;
+    width: 120px;
+}
+.token-owner-logo
+{
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    margin-left: 0px;
+}
+.collectible-img-top
+{
+    padding-top: 10px;
+    height: 300px;
+    width: 300px;
+}
+.collectible-title
+{
+    text-align: left;
+    padding-left: 28px;
+}
+.collectible-card-cost
+{
+    text-align: left;
+    padding-left: 28px;
+}
+
+/* PROFILE SCREEN END */
+
+/* MY ITEMS START */
+.myitemsContainer ul li
+{
+    display: table;
+    margin: 50px auto;
+    font-size: large;
+    border-radius: 10px; 
+}
+
+.myitemsContainer
+{
+    text-align: center;
+    color: black;
+    margin-left: auto;
+}
+
+.myItemstab-content
+{
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+    width: 600px;
+    margin: auto;
+    padding: 20px;
+}
+/* MY ITEMS END */
+
+/* PRODUCT START */
+
+.product-image
+{
+    margin: 20px;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    float: left;
+}
+
+/* Homepage header START */
+
+.homepageContainer1{
+    margin-top: 40px;
+}
+.homepageMessage{
+    text-align: center;
+    margin-top: 100px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.homepageTitle{
+    font-weight: 700;
+    font-family: 'Lato', serif;
+}
+.homepageAdvCard{
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 50px;
+}
+.benefitsCard-title{
+    text-align: center;
+}
+.benefitsCard-text{
+    text-align: center;
+}
+.homepageContainer2{
+    margin-top: 50px;
+}
+.homepageContainer2 img{
+width: 100%;
+}
+.homepageContainer3{
+    margin-top: 20px;
+    margin-left: 75px;
+}
+.homepageContainer3 img{
+    width: 110%;
+}
+.homepageMessage2{
+    text-align: center;
+    margin-top: 50px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.homepageTitle2{
+    font-weight: 700;
+    font-family: 'Lato', serif;
+}
+
