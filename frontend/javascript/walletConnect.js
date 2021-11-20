@@ -5,7 +5,7 @@ const QRCodeModal = WalletConnectQRCodeModal.default;
 // Create a connector
 const connector = new walletconnect({
   bridge: "https://bridge.walletconnect.org", // Required
-  // chainId: 80001,
+  chainId: 80001,
   // rpcUrl: "https://rpc-mumbai.maticvigil.com/",
   qrcodeModal: QRCodeModal,
 });
