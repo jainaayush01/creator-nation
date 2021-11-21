@@ -32,14 +32,14 @@ async function searchUser1() {
                     }
                     document.getElementById("mainbkp1").innerHTML = $strm;
                 } catch ($e) {
-                    alert($e + "11");
+                    console.log($e + "11");
                 }
             })
             .catch(function (error) {
-                alert(JSON.stringify(error));
+                console.log(JSON.stringify(error));
             });
     } catch ($e) {
-        alert($e + "9");
+        console.log($e + "9");
     }
     try {
         const User = Moralis.Object.extend("Memberships");
@@ -62,14 +62,14 @@ async function searchUser1() {
                     }
                     document.getElementById("mainbkp2").innerHTML = $strm;
                 } catch ($e) {
-                    alert($e + "8");
+                    console.log($e + "8");
                 }
             })
             .catch(function (error) {
-                alert(JSON.stringify(error));
+                console.log(JSON.stringify(error));
             });
     } catch ($e) {
-        alert($e + "7");
+        console.log($e + "7");
     }
     try {
         const User = Moralis.Object.extend("Connect");
