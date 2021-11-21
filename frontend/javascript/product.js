@@ -44,6 +44,8 @@ async function connectWallet() {
 
         if(!ethereum) {
             console.log('please install metamask');
+            document.querySelector('.buyCrypto').classList.add('hideBtn');
+            document.querySelector('.buyFiat').classList.remove('hideBtn');
         }else {
             const accounts = await ethereum.request({ method: "eth_requestAccounts" });
 
