@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract MyToken is ERC1155, Ownable, ReentrancyGuard {
+contract CreatorNation is ERC1155, Ownable, ReentrancyGuard {
     // Variables
     using Counters for Counters.Counter;
     Counters.Counter public _tokenIds;
@@ -15,26 +15,15 @@ contract MyToken is ERC1155, Ownable, ReentrancyGuard {
     // Contract name
     string public name;
 
-    // Creator structure
-    struct Creator {
-        address creatorAddress;
-        string name;
-        uint256 registeredDate;
-        bool registrationStatus;
-    }
-
     mapping(uint256 => uint256) public tokensAvailable;
 
     mapping(address => Token[]) public buyerToTokens;
-
-    // Keeps track of the registered creators
-    mapping(address => Creator) public registeredCreator;
 
     uint256 percentageOfSale;
 
     struct Token {
         uint256 id;
-        Creator creator;
+        address creator;
         string tokenName;
         string mediaUrl;
         uint256 cost;
@@ -43,8 +32,6 @@ contract MyToken is ERC1155, Ownable, ReentrancyGuard {
         uint256 createdTime;
     }
     mapping(uint256 => Token) public idToToken;
-    address[] public registeredCreators;
-    address[] public registeredUsers;
     mapping(address => Token[]) public creatorTokens;
 
     // The collectionName and the percentage of commision are required to deploy the smart contract
@@ -57,17 +44,8 @@ contract MyToken is ERC1155, Ownable, ReentrancyGuard {
     }
 
     // Useful to display information of the 'Craetor NAtion' collection on OpenSea
-    function contractURI() public view returns (string memory) {
+    function contractURI() public pure returns (string memory) {
         return "https://jsonkeeper.com/b/OJOC";
-    }
-
-    // Modifiers
-    modifier onlyCreator() {
-        require(
-            registeredCreator[msg.sender].registrationStatus == true,
-            "be a creator!"
-        );
-        _;
     }
 
     // Events
@@ -81,33 +59,23 @@ contract MyToken is ERC1155, Ownable, ReentrancyGuard {
 
     // Functions
 
-    // Can be called only by the owner(pool)
-    function registerCreator(address creatorAddress, string memory name)
-        public
-        onlyOwner
-        returns (bool)
-    {
-        Creator memory _creator;
-        _creator = Creator(creatorAddress, name, block.timestamp, true);
-        registeredCreator[creatorAddress] = _creator;
-        registeredCreators.push(creatorAddress);
-        return true;
-    }
-
-    // can be called only by a registered creator and requires gas payment
     function mint(
+        address creatorAddress,
         string memory tokenName,
         uint256 cost,
         uint256 total,
         string memory uri,
         string memory mediaUrl
-    ) public onlyCreator {
-        require(creatorTokens[msg.sender].length < 6, "max of 6 Tokens only");
+    ) public onlyOwner {
+        require(
+            creatorTokens[creatorAddress].length < 6,
+            "max of 6 Tokens only"
+        );
         Token memory _token;
 
         _token = Token(
             _tokenIds.current() + 1,
-            registeredCreator[msg.sender],
+            creatorAddress,
             tokenName,
             mediaUrl,
             cost,
@@ -117,11 +85,11 @@ contract MyToken is ERC1155, Ownable, ReentrancyGuard {
         );
 
         idToToken[_tokenIds.current() + 1] = _token;
-        creatorTokens[msg.sender].push(_token);
+        creatorTokens[creatorAddress].push(_token);
         _setURI(uri);
         _tokenIds.increment();
         uint256 id = _tokenIds.current();
-        _mint(msg.sender, id, total, "");
+        _mint(creatorAddress, id, total, "");
         setApprovalForAll(address(this), true);
         tokensAvailable[id] = total;
         emit onMint(msg.sender, tokenName, id, cost, total);
@@ -129,9 +97,8 @@ contract MyToken is ERC1155, Ownable, ReentrancyGuard {
 
     // Marketplace Functions
 
-    // Requires Payment by the buyer
-
-    function buyTokens(uint256 _tokenId, uint256 _amount)
+    // Requires Payment by the buyer and can be called by the metamask user only
+    function buyTokensUsingCrypto(uint256 _tokenId, uint256 _amount)
         public
         payable
         returns (bool)
@@ -141,7 +108,7 @@ contract MyToken is ERC1155, Ownable, ReentrancyGuard {
             "not equal to token's value"
         );
         uint256 amountOfTokensLeft = tokensAvailable[_tokenId];
-        address tokenCreator = idToToken[_tokenId].creator.creatorAddress;
+        address tokenCreator = idToToken[_tokenId].creator;
         require(_amount <= amountOfTokensLeft, "Tokens not available");
 
         uint256 amountToTransferToCreator = (msg.value *
@@ -153,10 +120,77 @@ contract MyToken is ERC1155, Ownable, ReentrancyGuard {
 
         tokensAvailable[_tokenId] -= _amount;
         idToToken[_tokenId].amountAvailable -= _amount;
-        buyerToTokens[msg.sender].push(idToToken[_tokenId]);
+
+        Token memory transferToken = Token(
+            _tokenId,
+            tokenCreator,
+            idToToken[_tokenId].tokenName,
+            idToToken[_tokenId].mediaUrl,
+            idToToken[_tokenId].cost,
+            _amount,
+            idToToken[_tokenId].totalSupply,
+            block.timestamp
+        );
+
+        pushToBuyerTokens(transferToken, msg.sender);
+
+        // buyerToTokens[msg.sender].push(idToToken[_tokenId]);
+
         _safeTransferFrom(tokenCreator, msg.sender, _tokenId, _amount, "");
 
         return true;
+    }
+
+    // This function can be called only by the owner
+    function buyTokensFiat(
+        address buyerAddress,
+        uint256 _tokenId,
+        uint256 _amount
+    ) public payable onlyOwner returns (bool) {
+        uint256 amountOfTokensLeft = tokensAvailable[_tokenId];
+        address tokenCreator = idToToken[_tokenId].creator;
+        require(_amount <= amountOfTokensLeft, "Tokens not available");
+
+        tokensAvailable[_tokenId] -= _amount;
+        idToToken[_tokenId].amountAvailable -= _amount;
+
+        Token memory transferToken = Token(
+            _tokenId,
+            tokenCreator,
+            idToToken[_tokenId].tokenName,
+            idToToken[_tokenId].mediaUrl,
+            idToToken[_tokenId].cost,
+            _amount,
+            idToToken[_tokenId].totalSupply,
+            block.timestamp
+        );
+
+        pushToBuyerTokens(transferToken, buyerAddress);
+        _safeTransferFrom(tokenCreator, buyerAddress, _tokenId, _amount, "");
+
+        return true;
+    }
+
+    function pushToBuyerTokens(Token memory token, address sender) internal {
+        if (buyerToTokens[sender].length == 0) {
+            buyerToTokens[sender].push(token);
+        } else if (buyerToTokens[sender].length > 0) {
+            uint256 id = token.id;
+            uint256 amount = token.amountAvailable;
+
+            uint256 x;
+
+            for (uint256 i = 0; i < buyerToTokens[sender].length; i++) {
+                if (buyerToTokens[sender][i].id == id) {
+                    x += 1;
+                    buyerToTokens[sender][i].amountAvailable += amount;
+                }
+            }
+
+            if (x == 0) {
+                buyerToTokens[sender].push(token);
+            }
+        }
     }
 
     // Fetch my NFTs
@@ -164,11 +198,12 @@ contract MyToken is ERC1155, Ownable, ReentrancyGuard {
         address creator = msg.sender;
         if (creatorTokens[creator].length > 0) {
             uint256 length = creatorTokens[creator].length;
-
+            uint256 tokenID;
             Token[] memory items = new Token[](length);
 
             for (uint256 i = 0; i < length; i++) {
-                items[i] = creatorTokens[creator][i];
+                tokenID = creatorTokens[creator][i].id;
+                items[i] = idToToken[tokenID];
             }
             return items;
         }

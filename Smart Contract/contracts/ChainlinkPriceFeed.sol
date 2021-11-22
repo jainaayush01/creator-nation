@@ -1,19 +1,19 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.3;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
-contract PriceConsumerV3 {
+contract MaticPrice {
     AggregatorV3Interface internal priceFeed;
 
     /**
-     * Network: Rinkeby
-     * Aggregator: ETH/USD
-     * Address: 0x8A753747A1Fa494EC906cE90E9f37563A8AF630e
+     * Network: Mumbai
+     * Aggregator: MATIC/USD
+     * Address: 0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada
      */
     constructor() {
         priceFeed = AggregatorV3Interface(
-            0x8A753747A1Fa494EC906cE90E9f37563A8AF630e
+            0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada
         );
     }
 
