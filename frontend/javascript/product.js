@@ -4,32 +4,32 @@ var url = window.location.href;
 const urlParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlParams.entries());
 
-async function checkWallet () {
+async function checkWallet() {
 
     try {
-        const  {ethereum} = window;
-    
-        if(!ethereum) {
+        const { ethereum } = window;
+
+        if (!ethereum) {
             console.log("metamask not installed")
-        }else {
-            console.log("eth obj is --> ", ethereum);
-        }
-    
-        const accounts = await ethereum.request({ method:'eth_accounts'});
-    
-        if(accounts.length !== 0) {
-            const account = accounts[0];
-            console.log('Found an authorised account!',account);
-            document.querySelector('.buyCrypto').classList.remove('hideBtn');
-            document.querySelector('.buyFiat').classList.add('hideBtn');
-            
-        }else {
             document.querySelector('.buyCrypto').classList.add('hideBtn');
             document.querySelector('.buyFiat').classList.remove('hideBtn');
-            console.log('no authorised account found....');
+        } else {
+            console.log("eth obj is --> ", ethereum);
+            const accounts = await ethereum.request({ method: 'eth_accounts' });
+
+            if (accounts.length !== 0) {
+                const account = accounts[0];
+                console.log('Found an authorised account!', account);
+                document.querySelector('.buyCrypto').classList.remove('hideBtn');
+                document.querySelector('.buyFiat').classList.add('hideBtn');
+
+            } else {
+                document.querySelector('.buyCrypto').classList.add('hideBtn');
+                document.querySelector('.buyFiat').classList.remove('hideBtn');
+                console.log('no authorised account found....');
+            }
         }
-    
-    }catch(err) {
+    } catch (err) {
         console.log(err);
     }
 
@@ -40,20 +40,20 @@ async function checkWallet () {
 
 async function connectWallet() {
     try {
-        const {ethereum} = window;
+        const { ethereum } = window;
 
-        if(!ethereum) {
+        if (!ethereum) {
             console.log('please install metamask');
             document.querySelector('.buyCrypto').classList.add('hideBtn');
             document.querySelector('.buyFiat').classList.remove('hideBtn');
-        }else {
+        } else {
             const accounts = await ethereum.request({ method: "eth_requestAccounts" });
 
-            
+
 
             // console.log("Connected", accounts[0]);
         }
-    }catch (err) {
+    } catch (err) {
         console.log(err);
     }
 }
@@ -64,8 +64,7 @@ connectWallet();
 
 const CreatorToken = Moralis.Object.extend('CreatorToken');
 const query = new Moralis.Query(CreatorToken);
-try {
-    query.get(params.objId)
+query.get(params.objId)
     .then((queryResult) => {
         const productName = document.querySelector('.productName')
         const currentBid = document.querySelector('.currentBid')
@@ -78,6 +77,26 @@ try {
         creatorName.innerText = params.userId
         productImageDisplay.setAttribute('src', queryResult.get('tokenFile')._url)
     })
-}catch (err) {
-    console.log(err)
+    .catch(err => {
+        console.log(err)
+    });
+
+
+
+let paymentModal = document.querySelector("#payment-modal");
+let buyStripe = document.querySelector("#buyStripe");
+let close = document.querySelector(".close");
+
+buyStripe.onclick = () => {
+    paymentModal.style.display = "block";
+}
+
+close.onclick = () => {
+    paymentModal.style.display = "none";
+}
+
+window.onclick = (event) => {
+    if (event.target == paymentModal) {
+        paymentModal.style.display = "none";
+    }
 }
