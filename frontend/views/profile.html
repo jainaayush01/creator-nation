@@ -29,6 +29,13 @@
 
             window.location.assign("../index.html");
         }
+
+        // const user = Moralis.User.current();
+        // if(user) {
+        //     const userProfileSlug = user.id.substring(4,8);
+
+        // }
+
     </script>
 
     <!-- Navbar Start -->
@@ -93,7 +100,7 @@
         <div class="cnProfile">
             <img class="cn-cover-image" src="https://i.ytimg.com/vi/uFk0mgljtns/maxresdefault.jpg"
                 alt="Profile image example" />
-            <img class="cn-profile-image" src="https://upload.wikimedia.org/wikipedia/en/6/65/Kurzgesagt.png"
+            <img class="cn-profile-image" src="https://avatars.dicebear.com/api/miniavs/.svg?mood[]=happy"
                 alt="Profile image example" width="136px" height="136px" />
             <div class="cnProfile-text">
                 <h1 class="profileName">Isaac Newton</h1>
@@ -216,6 +223,10 @@
     <script>
         const user = Moralis.User.current();
         if (user) {
+            const userProfileImageSlug = user.id.substring(4,8);
+            const profileImgElement = document.querySelector('.cn-profile-image');
+            profileImgElement.setAttribute("src", "https://avatars.dicebear.com/api/miniavs/"+userProfileImageSlug+".svg?mood[]=happy&backgroundColor=white");
+
             document.getElementById("signoutButton").style.display = "block";
             document.getElementById("signinButton").style.display = "none";
         } else {

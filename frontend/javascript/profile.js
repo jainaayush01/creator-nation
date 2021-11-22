@@ -26,9 +26,10 @@ async function searchUser1() {
                         $username = obj1.get("username").get("username");
                         $menu_ic = "";
                         if ((($user2 + "").localeCompare(($username + ""))) == 0) {
-                            $menu_ic = "<div> <a href=\"newtoken.html?rtype=" + obj1.get("tokenName") + "\"><img src=\"https://cdn.iconscout.com/icon/free/png-256/edit-2653317-2202989.png\" alt=\"\" class=\" token-owner-logo\" align=\"right\"></a>  <a href=\"newtoken.html?rtype=" + obj1.get("tokenName") + "\"><img src=\"https://cdn.icon-icons.com/icons2/1744/PNG/512/3643772-archive-archives-document-folder-open_113445.png\" alt=\"\" class=\" token-owner-logo\" align=\"right\"></a>  </div>";
+                            $menu_ic = "<div> <a href=\"newtoken.html?rtype=" + obj1.get("tokenName") + "\"><img src=\"https://cdn.iconscout.com/icon/free/png-256/edit-2653317-2202989.png\" alt=\"\" class=\" token-owner-logo\" align=\"right\"></a>    </div>";
+                        // <a href=\"newtoken.html?rtype=" + obj1.get("tokenName") + "\"><img src=\"https://cdn.icon-icons.com/icons2/1744/PNG/512/3643772-archive-archives-document-folder-open_113445.png\" alt=\"h\" class=\" token-owner-logo\" align=\"right\"></a>
                         }
-                        $strm += "<div class=\"token-card\"> <div> <img src=\"" + obj1.get("tokenFile").url() + "\" alt=\"\" class=\" token-owner-logo\" align=\"left\"> </div>" + $menu_ic + "  <img src=\"" + obj1.get("tokenFile").url() + "\" class=\"token-img-top\"> <p></p> <div class=\"token-card-body\"> <h5 class=\"token-title\">" + obj1.get('tokenName') + "</h5> <p class=\"token-card-text\"> " + obj1.get('tokenBenefits') + "</p> <a href=\"product.html\"><button type=\"button\" class=\"btn btn-danger btn-lg\">INVEST</button></a> </div></div>";
+                        $strm += "<div class=\"token-card\"> <div> <img src=\"" + obj1.get("tokenFile").url() + "\" alt=\"\" class=\" token-owner-logo\" align=\"left\"> </div>" + $menu_ic + "  <img src=\"" + obj1.get("tokenFile").url() + "\" class=\"token-img-top\"> <p></p> <div class=\"token-card-body\"> <h5 class=\"token-title\">" + obj1.get('tokenName') + "</h5> <p class=\"token-card-text\"> " + obj1.get('tokenBenefits') + "</p> <a href=\"product.html?userId=" +$username+"&objId="+ obj1.id  +"\"><button type=\"button\" class=\"btn btn-danger btn-lg\">INVEST</button></a> </div></div>";
                     }
                     document.getElementById("mainbkp1").innerHTML = $strm;
                 } catch ($e) {
