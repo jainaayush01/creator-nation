@@ -38,19 +38,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         apiVersion: '2020-08-27',
     });
 
-    const appearance = {
-        theme: 'stripe',
-        variables: {
-            colorPrimary: '#00e',
-            colorBackground: '#000',
-            colorText: '#30313d',
-            colorDanger: '#df1b41',
-            fontFamily: 'Ideal Sans, system-ui, sans-serif',
-            spacingUnit: '2px',
-            borderRadius: '4px',
-        }
-    }
-
     const elements = stripe.elements();
     console.log(elements);
     const card = elements.create('card');
@@ -66,6 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (submitted) { return; }
         submitted = true;
         form.querySelector('#submit').disabled = true;
+        const currentBid = document.querySelector('.currentBid')
 
         // Make a call to the server to create a new
         // payment intent and store its client_secret.
@@ -78,6 +66,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 },
                 body: JSON.stringify({
                     currency: 'inr',
+                    amount: currentBid,
                     paymentMethodType: 'card',
                 }),
             }
