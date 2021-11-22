@@ -12,7 +12,12 @@
         width:500px !important;
         border-radius: 30px 30px 30px 30px;
     }
-
+.trendingHead {
+        margin-left: 10px;
+        margin-bottom: -115px;
+        margin-top: 25px;
+        font-weight: 900;
+    }
 #cardcontainer
     {
         margin-top: auto;
@@ -418,7 +423,7 @@ p.terms_serv{
     margin-right: 200px;
 }
 .homepageTitle{
-    font-weight: 700;
+    font-weight: 400;
     font-family: 'Lato', serif;
 }
 .homepageAdvCard{
@@ -452,7 +457,7 @@ width: 100%;
     margin-right: 200px;
 }
 .homepageTitle2{
-    font-weight: 700;
+    font-weight: 400;
     font-family: 'Lato', serif;
 }
 
