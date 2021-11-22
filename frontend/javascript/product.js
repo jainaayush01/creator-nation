@@ -71,11 +71,13 @@ query.get(params.objId)
         const description = document.querySelector('.description')
         const creatorName = document.querySelector('.creatorName')
         const productImageDisplay = document.querySelector('.productImageDisplay')
-        productName.innerText = queryResult.get('tokenName');
-        currentBid.innerText = '$' + queryResult.get('tokenPrice');
-        description.innerText = queryResult.get('tokenBenefits');
-        creatorName.innerText = params.userId
+        const paymentModalTokenPrice = document.querySelector("#payment-modal-token-price");
+        productName.innerHTML = queryResult.get('tokenName');
+        currentBid.innerHTML = '$' + '<div style="display: inline" id="tokenPrice">' + queryResult.get('tokenPrice') + '</div>';
+        description.innerHTML = queryResult.get('tokenBenefits');
+        creatorName.innerHTML = params.userId
         productImageDisplay.setAttribute('src', queryResult.get('tokenFile')._url)
+        paymentModalTokenPrice.value = queryResult.get('tokenPrice');
     })
     .catch(err => {
         console.log(err)

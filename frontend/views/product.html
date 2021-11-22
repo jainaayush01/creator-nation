@@ -151,10 +151,14 @@
     </p> -->
 
       <form id="payment-form">
-        <label for="name">
+        <label style="display: inline" for="name">
           Name of the Card Holder
         </label>
-        <input id="name" placeholder="Jenny Rosen" value="Jenny Rosen" required />
+        <input id="name" placeholder="John Doe" value="" required />
+        <label style="display: inline" for="token-price">
+          $
+        </label>
+        <input disabled id="payment-modal-token-price" value=""/>
 
         <label for="card-element">
           Card Details
