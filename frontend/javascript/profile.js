@@ -5,6 +5,33 @@ const urlParams = new URLSearchParams(window.location.search);
 
 const userId = urlParams.get('userId');
 
+const User = Moralis.Object.extend('User')
+
+const query = new Moralis.Query(User)
+query.equalTo("username",userId)
+
+query.find()
+.then((result) => {
+    try {
+        for(var i=0;i<result.length;i++) {
+            const obj1 = result[i]
+            const userProfileImageSlug = user.id.substring(4,8);
+            const profileImgElement = document.querySelector('.cn-profile-image');
+            const profileCoverImgElement = document.querySelector('.cn-cover-image');
+            const profileUserName = document.querySelector(".profileName")
+            const profileUserBio = document.querySelector(".profileBio")
+
+
+            profileImgElement.setAttribute("src", obj1.get("userProfilePicture")._url||"https://avatars.dicebear.com/api/miniavs/"+userProfileImageSlug+".svg?mood[]=happy&backgroundColor=white");
+            profileCoverImgElement.setAttribute("src", obj1.get("userProfileCoverPicture")._url||"https://i.ytimg.com/vi/uFk0mgljtns/maxresdefault.jpg");
+            profileUserName.innerText = obj1.get("username");
+            profileUserBio.innerText = obj1.get("bio")
+        }
+    }catch(err) {
+        console.log(err);
+    }
+})
+
 
 async function searchUser1() {
     try {
