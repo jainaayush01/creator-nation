@@ -10,7 +10,6 @@ const provider = new WalletConnectProvider.default({
 });
 
 showConnect();
-connectWallet();
 
 document.getElementById("btn-connect").addEventListener("click", connectWallet)
 
@@ -106,6 +105,8 @@ async function uploadEthAddress(address){
 async function showConnect(){
   if(!Moralis.User.current()){
     document.getElementById("prepare").style.display="none";
+  }else{
+    connectWallet();
   }
 }
     
