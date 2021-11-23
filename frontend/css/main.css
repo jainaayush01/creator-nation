@@ -49,6 +49,12 @@ h2{
 
 }
 
+.csoon{
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 /* Homepage End */
 
 
