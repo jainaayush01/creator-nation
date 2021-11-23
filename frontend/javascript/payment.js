@@ -1,4 +1,4 @@
-const BACKEND_URL = 'http://localhost:4242';
+const BACKEND_URL = 'http://35.225.45.102';
 const STRIPE_PUBLISHABLE_KEY = 'pk_test_51JbPGjSDIAUQ0zT7QrDZqVpznfVEDLAxQc0iM2lLdXpJ1bZMsdGkkNFW9sOpbeWuKNBqIYVERhc6zEoZDDfTuQUu00nUonCHip';
 
 // utils
@@ -53,7 +53,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (submitted) { return; }
         submitted = true;
         form.querySelector('#submit').disabled = true;
-        const currentBid = document.querySelector('.currentBid')
+        const currentBid = parseInt(document.querySelector('#payment-modal-token-price').value);
+        console.log(currentBid);
 
         // Make a call to the server to create a new
         // payment intent and store its client_secret.
