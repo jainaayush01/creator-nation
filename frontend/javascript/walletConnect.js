@@ -1,3 +1,5 @@
+Moralis.initialize("rDecx1uN0CRZ8QWRxqjDeWEdc9P9ozhtp5xJjH5v"); // APP ID
+Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
 //  Create WalletConnect Provider
 const provider = new WalletConnectProvider.default({
   infuraId: "e992178cee28442e86aa8c6611d7d472",
@@ -6,16 +8,18 @@ const provider = new WalletConnectProvider.default({
   },
   
 });
-console.log(provider);
+
+showConnect()
 
 document.getElementById("btn-connect").addEventListener("click", async()=>{
   //  Enable session (triggers QR Code modal)
   try{
     await provider.enable();
     console.log(provider);
+    console.log("Connect Address:",provider.accounts[0])
+    uploadEthAddress(provider.accounts[0])
     //  Create Web3 instance
     window.web3 = new Web3(provider);
-    sign()
     document.getElementById("connected").style.display="block";
     document.getElementById("prepare").style.display="none";
   }catch(err){
@@ -60,3 +64,45 @@ async function sign(){
       console.log(signedMessage);
   }
 }
+
+
+
+async function uploadEthAddress(address){
+  if(Moralis.User.current()){
+    let user2 = Moralis.User.current().get("username");
+    console.log(user2);
+    try{
+      const User = Moralis.Object.extend("User");
+      const query = new Moralis.Query(User);
+      query.equalTo("username", user2);
+      const results = await query.find();
+      let userDataObj = results[0]; 
+      var userAddress = userDataObj.get("ethAddress")
+      if(!userAddress){
+        userDataObj.set("ethAddress", address);
+        let result = await userDataObj.save();
+        console.log("SuccessFully Set User Address", result);
+      }else{
+        console.log("Already Found Address: ",userAddress);
+        if(userAddress!=address){
+          alert("Registered Address and Wallet Connect Address Does not Match");
+          provider.disconnect();
+        }
+      }
+    }catch(err){
+      console.log(err)
+    }
+    
+  }
+  else{
+    console.log("Not LogedIn")
+  }
+}
+
+
+async function showConnect(){
+  if(!Moralis.User.current()){
+    document.getElementById("prepare").style.display="none";
+  }
+}
+    
