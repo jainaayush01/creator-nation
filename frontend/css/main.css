@@ -55,6 +55,7 @@ h2{
   margin-right: auto;
   width: 50%;
 }
+
 /* Homepage End */
 
 
@@ -340,6 +341,7 @@ p.terms_serv{
     border-color: gainsboro;
     border-radius: 10px;
     padding: 20px;
+    margin-bottom: 30px;
 
 }
 .token-card-text li
