@@ -9,9 +9,12 @@ const provider = new WalletConnectProvider.default({
   
 });
 
-showConnect()
+showConnect();
+connectWallet();
 
-document.getElementById("btn-connect").addEventListener("click", async()=>{
+document.getElementById("btn-connect").addEventListener("click", connectWallet)
+
+async function connectWallet(){
   //  Enable session (triggers QR Code modal)
   try{
     await provider.enable();
@@ -26,7 +29,7 @@ document.getElementById("btn-connect").addEventListener("click", async()=>{
     console.log("Modal Closed");
   }
 
-})
+}
 
 // Subscribe to accounts change
 provider.on("accountsChanged", (accounts) => {
