@@ -89,6 +89,7 @@ app.post('/create-payment-intent', async (req, res) => {
   }
 });
 
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 // Expose a endpoint as a webhook handler for asynchronous events.
 // Configure your webhook in the stripe developer dashboard
 // https://dashboard.stripe.com/test/webhooks
