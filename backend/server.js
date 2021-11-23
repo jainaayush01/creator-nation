@@ -16,17 +16,25 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
 });
 
 // app.use(express.static(process.env.STATIC_DIR));
-app.use(
-  express.json({
-    // We need the raw body to verify webhook signatures.
-    // Let's compute it only when hitting the Stripe webhook endpoint.
-    verify: function (req, res, buf) {
-      if (req.originalUrl.startsWith('/webhook')) {
-        req.rawBody = buf.toString();
-      }
-    },
-  })
-);
+// app.use(
+//   express.json({
+//     // We need the raw body to verify webhook signatures.
+//     // Let's compute it only when hitting the Stripe webhook endpoint.
+//     verify: function (req, res, buf) {
+//       if (req.originalUrl.startsWith('/webhook')) {
+//         req.rawBody = buf.toString();
+//       }
+//     },
+//   })
+// );
+app.use((req, res, next) => {
+  if (req.originalUrl === '/webhook') {
+    next();
+  } else {
+    express.json()(req, res, next);
+  }
+});
+
 
 app.get('/', (req, res) => {
   res.json({
@@ -93,15 +101,15 @@ const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 // Expose a endpoint as a webhook handler for asynchronous events.
 // Configure your webhook in the stripe developer dashboard
 // https://dashboard.stripe.com/test/webhooks
-app.post('/webhook', express.raw({type: 'application/json'}), (request, response) => {
-  const sig = request.headers['stripe-signature'];
+app.post('/webhook', express.raw({type: 'application/json'}), (req, res) => {
+  const sig = req.headers['stripe-signature'];
 
   let event;
 
   try {
-    event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
   } catch (err) {
-    response.status(400).send(`Webhook Error: ${err.message}`);
+    res.status(400).send(`Webhook Error: ${err.message}`);
     return;
   }
 
@@ -125,7 +133,7 @@ app.post('/webhook', express.raw({type: 'application/json'}), (request, response
       console.log(`Unhandled event type ${event.type}`);
   }
 
-  // Return a response to acknowledge receipt of the event
+  // Return a res to acknowledge receipt of the event
   res.json({ received: true });
 });
 
