@@ -28,10 +28,11 @@ app.use(
   })
 );
 
-// app.get('/', (req, res) => {
-//   const path = resolve(process.env.STATIC_DIR + '/index.html');
-//   res.sendFile(path);
-// });
+app.get('/', (req, res) => {
+  res.json({
+    "message": "hello World"
+  })
+});
 
 app.get('/config', (req, res) => {
   res.send({
@@ -40,7 +41,7 @@ app.get('/config', (req, res) => {
 });
 
 app.post('/create-payment-intent', async (req, res) => {
-  const { paymentMethodType, currency } = req.body;
+  const { paymentMethodType, amount, currency } = req.body;
 
   // Each payment method type has support for different currencies. In order to
   // support many payment method types and several currencies, this server
@@ -50,8 +51,8 @@ app.post('/create-payment-intent', async (req, res) => {
   // Some example payment method types include `card`, `ideal`, and `alipay`.
   const params = {
     payment_method_types: [paymentMethodType],
-    amount: 1999,
-    currency: 'inr',
+    amount: amount,
+    currency: currency,
   }
 
   // If this is for an ACSS payment, we add payment_method_options to create
@@ -91,9 +92,18 @@ app.post('/create-payment-intent', async (req, res) => {
 // Expose a endpoint as a webhook handler for asynchronous events.
 // Configure your webhook in the stripe developer dashboard
 // https://dashboard.stripe.com/test/webhooks
-app.post('/webhook', express.json({ type: 'application/json' }), (req, res) => {
-  const event = req.body;
-  // Handle the event
+app.post('/webhook', express.raw({type: 'application/json'}), (request, response) => {
+  const sig = request.headers['stripe-signature'];
+
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+  } catch (err) {
+    response.status(400).send(`Webhook Error: ${err.message}`);
+    return;
+  }
+
   switch (event.type) {
     case 'payment_intent.succeeded':
       const paymentIntent = event.data.object;
