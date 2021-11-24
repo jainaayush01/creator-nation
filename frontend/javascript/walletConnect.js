@@ -103,10 +103,15 @@ async function uploadEthAddress(address){
 
 
 async function showConnect(){
-  if(!Moralis.User.current()){
-    document.getElementById("prepare").style.display="none";
+  
+  if(Moralis.User.current()){
+    if(Moralis.User.current().get("authData")){
+      document.getElementById("prepare").style.display="none";
+    }else{
+      connectWallet();
+    }
   }else{
-    connectWallet();
+    document.getElementById("prepare").style.display="none";
   }
 }
     
