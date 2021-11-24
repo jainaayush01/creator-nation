@@ -5,25 +5,36 @@ const urlParams = new URLSearchParams(window.location.search);
 
 const userId = urlParams.get('userId');
 
-const User = Moralis.Object.extend('User')
+const User = Moralis.Object.extend('_User')
 
 const query = new Moralis.Query(User)
 query.equalTo("username", userId)
 
 query.find()
     .then((result) => {
+
         try {
+            console.log(result)
+
             for (var i = 0; i < result.length; i++) {
                 const obj1 = result[i]
                 const userProfileImageSlug = user.id.substring(4, 8);
+                const profile = document.querySelector('.cnProfile');
                 const profileImgElement = document.querySelector('.cn-profile-image');
                 const profileCoverImgElement = document.querySelector('.cn-cover-image');
                 const profileUserName = document.querySelector(".profileName")
                 const profileUserBio = document.querySelector(".profileBio")
+                console.log(obj1)
 
+                if(!obj1.get('userProfileCoverPicture')) {
+                    profile.innerHTML = '<img class="cn-cover-image" src='+'"https://i.ytimg.com/vi/uFk0mgljtns/maxresdefault.jpg" ' +
+                    'alt="Profile image example" />' + '<img class="cn-profile-image" src='+'"https://avatars.dicebear.com/api/miniavs/user.svg?mood[]=happy" '+
+                    'alt="Profile image example" width="136px" height="136px" />' + "<h1 class='profileName' style='text-align: center'>Issac Newton</h1>" + "<p class='profileBio' style='text-align: center'>Sample Bio</p>"
+                }
+                    profileImgElement.setAttribute("src", obj1.get("userProfilePicture")._url || "https://avatars.dicebear.com/api/miniavs/"+userProfileImageSlug+".svg?mood[]=happy");
+                    profileCoverImgElement.setAttribute("src", obj1.get("userProfileCoverPicture")._url || "https://i.ytimg.com/vi/uFk0mgljtns/maxresdefault.jpg");
 
-                profileImgElement.setAttribute("src", obj1.get("userProfilePicture")._url || "https://avatars.dicebear.com/api/miniavs/" + userProfileImageSlug + ".svg?mood[]=happy&backgroundColor=white");
-                profileCoverImgElement.setAttribute("src", obj1.get("userProfileCoverPicture")._url || "https://i.ytimg.com/vi/uFk0mgljtns/maxresdefault.jpg");
+                
                 profileUserName.innerText = obj1.get("username");
                 profileUserBio.innerText = obj1.get("bio")
             }
