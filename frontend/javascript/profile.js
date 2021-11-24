@@ -5,6 +5,33 @@ const urlParams = new URLSearchParams(window.location.search);
 
 const userId = urlParams.get('userId');
 
+const User = Moralis.Object.extend('User')
+
+const query = new Moralis.Query(User)
+query.equalTo("username", userId)
+
+query.find()
+    .then((result) => {
+        try {
+            for (var i = 0; i < result.length; i++) {
+                const obj1 = result[i]
+                const userProfileImageSlug = user.id.substring(4, 8);
+                const profileImgElement = document.querySelector('.cn-profile-image');
+                const profileCoverImgElement = document.querySelector('.cn-cover-image');
+                const profileUserName = document.querySelector(".profileName")
+                const profileUserBio = document.querySelector(".profileBio")
+
+
+                profileImgElement.setAttribute("src", obj1.get("userProfilePicture")._url || "https://avatars.dicebear.com/api/miniavs/" + userProfileImageSlug + ".svg?mood[]=happy&backgroundColor=white");
+                profileCoverImgElement.setAttribute("src", obj1.get("userProfileCoverPicture")._url || "https://i.ytimg.com/vi/uFk0mgljtns/maxresdefault.jpg");
+                profileUserName.innerText = obj1.get("username");
+                profileUserBio.innerText = obj1.get("bio")
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    })
+
 
 async function searchUser1() {
     try {
@@ -27,9 +54,9 @@ async function searchUser1() {
                         $menu_ic = "";
                         if ((($user2 + "").localeCompare(($username + ""))) == 0) {
                             $menu_ic = "<div> <a href=\"newtoken.html?rtype=" + obj1.get("tokenName") + "\"><img src=\"https://cdn.iconscout.com/icon/free/png-256/edit-2653317-2202989.png\" alt=\"\" class=\" token-owner-logo\" align=\"right\"></a>    </div>";
-                        // <a href=\"newtoken.html?rtype=" + obj1.get("tokenName") + "\"><img src=\"https://cdn.icon-icons.com/icons2/1744/PNG/512/3643772-archive-archives-document-folder-open_113445.png\" alt=\"h\" class=\" token-owner-logo\" align=\"right\"></a>
+                            // <a href=\"newtoken.html?rtype=" + obj1.get("tokenName") + "\"><img src=\"https://cdn.icon-icons.com/icons2/1744/PNG/512/3643772-archive-archives-document-folder-open_113445.png\" alt=\"h\" class=\" token-owner-logo\" align=\"right\"></a>
                         }
-                        $strm += "<div class=\"token-card\"> <div> <img src=\"" + obj1.get("tokenFile").url() + "\" alt=\"\" class=\" token-owner-logo\" align=\"left\"> </div>" + $menu_ic + "  <img src=\"" + obj1.get("tokenFile").url() + "\" class=\"token-img-top\"> <p></p> <div class=\"token-card-body\"> <h5 class=\"token-title\">" + obj1.get('tokenName') + "</h5> <p class=\"token-card-text\"> " + obj1.get('tokenBenefits') + "</p> <a href=\"product.html?userId=" +$username+"&objId="+ obj1.id  +"\"><button type=\"button\" class=\"btn btn-danger btn-lg\">INVEST</button></a> </div></div>";
+                        $strm += "<div class=\"token-card\"> <div></div>" + "  <img src=\"" + obj1.get("tokenFile").url() + "\" class=\"token-img-top\"> <p></p> <div class=\"token-card-body\"> <h5 class=\"token-title\">" + obj1.get('tokenName') + "</h5> <p class=\"token-card-text\"> " + obj1.get('tokenBenefits') + "</p> <a href=\"product.html?userId=" + $username + "&objId=" + obj1.id + "\"><button type=\"button\" class=\"btn btn-danger btn-lg\">INVEST</button></a> </div></div>";
                     }
                     document.getElementById("mainbkp1").innerHTML = $strm;
                 } catch ($e) {
@@ -59,7 +86,7 @@ async function searchUser1() {
                         if ((($user2 + "").localeCompare(($username + ""))) == 0) {
                             $menu_ic = "<div> <a href=\"newmemberships.html?rtype=" + obj1.get("memTierName") + "\"><img src=\"https://cdn.iconscout.com/icon/free/png-256/edit-2653317-2202989.png\" class=\" token-owner-logo\" align=\"right\"></a>  <a href=\"newmemberships.html?rtype=" + obj1.get("memTierName") + "\"><img src=\"https://cdn.icon-icons.com/icons2/1744/PNG/512/3643772-archive-archives-document-folder-open_113445.png\" class=\" token-owner-logo\" align=\"right\"></a> </div>";
                         }
-                        $strm += "<div class=\"token-card\"> <div> <img src=\"" + obj1.get("memTierImage").url() + "\" alt=\" \" class=\" token-owner-logo \" align=\"left \"> </div>" + $menu_ic + " <img src=\"" + obj1.get("memTierImage").url() + "\" class=\"token-img-top \"> <p></p> <div class=\"token-card-body \"> <h5 class=\"token-title \">" + obj1.get("memTierName") + "</h5> <P class=\"token-card-cost \"><b>$" + obj1.get("memTierCost") + " per month</b></P> <p class=\"token-card-text \"> " + obj1.get("memTierDesc") + "</p> <a href=\"membershipProduct.html?userId=" +$username+"&objId="+ obj1.id  +"\"> <button type=\"button \" class=\"btn btn-danger btn-lg \">JOIN</button> </a> </div> </div>";
+                        $strm += "<div class=\"token-card\"> <div></div>" + " <img src=\"" + obj1.get("memTierImage").url() + "\" class=\"token-img-top \"> <p></p> <div class=\"token-card-body \"> <h5 class=\"token-title \">" + obj1.get("memTierName") + "</h5> <P class=\"token-card-cost \"><b>$" + obj1.get("memTierCost") + " per month</b></P> <p class=\"token-card-text \"> " + obj1.get("memTierDesc") + "</p> <a href=\"membershipProduct.html?userId=" + $username + "&objId=" + obj1.id + "\"> <button type=\"button \" class=\"btn btn-danger btn-lg \">JOIN</button> </a> </div> </div>";
                     }
                     document.getElementById("mainbkp2").innerHTML = $strm;
                 } catch ($e) {
@@ -89,7 +116,7 @@ async function searchUser1() {
                         if ((($user2 + "").localeCompare(($username + ""))) == 0) {
                             $menu_ic = "<div>  <a href=\"newconnect.html?rtype=" + obj1.get("activityName") + "\"><img src=\"https://cdn.iconscout.com/icon/free/png-256/edit-2653317-2202989.png\" alt=\"\" class=\" token-owner-logo\" align=\"right\"> </a>  <a href=\"newconnect.html?rtype=" + obj1.get("activityName") + "\"><img src=\"https://cdn.icon-icons.com/icons2/1744/PNG/512/3643772-archive-archives-document-folder-open_113445.png\" alt=\"\" class=\" token-owner-logo\" align=\"right\"> </a></div>";
                         }
-                        $strm += "<div class=\"token-card \" \"> <div> <img src=\"" + obj1.get("activityFile").url() + "\" class=\" token-owner-logo \" align=\"left \"> </div> " + $menu_ic + "<img src=\"" + obj1.get("activityFile").url() + "\" class=\"token-img-top \" > <p></p> <div class=\"token-card-body \"> <h5 class=\"token-title \">" + obj1.get("activityName") + "</h5> <P class=\"token-card-cost \"><b>$" + obj1.get("activityCost") + " per month</b></P> <p class=\"token-card-text \"> " + obj1.get("activityDesc") + " </p> <a href=\"connectProduct.html?userId=" +$username+"&objId="+ obj1.id  +"\"><button type=\"button \" class=\"btn btn-danger btn-lg \">JOIN</button></a> </div> </div>";
+                        $strm += "<div class=\"token-card \" \"> <div></div> " + "<img src=\"" + obj1.get("activityFile").url() + "\" class=\"token-img-top \" > <p></p> <div class=\"token-card-body \"> <h5 class=\"token-title \">" + obj1.get("activityName") + "</h5> <P class=\"token-card-cost \"><b>$" + obj1.get("activityCost") + " per month</b></P> <p class=\"token-card-text \"> " + obj1.get("activityDesc") + " </p> <a href=\"connectProduct.html?userId=" + $username + "&objId=" + obj1.id + "\"><button type=\"button \" class=\"btn btn-danger btn-lg \">JOIN</button></a> </div> </div>";
                         // alert(JSON.stringify());
                     }
                     document.getElementById("mainbkp4").innerHTML = $strm;
@@ -127,7 +154,7 @@ async function searchUser1() {
                             $menu_ic = "<div> <a href=\"newlicensing.html?rtype=" + obj1.get("licensingName") + "\"><img src=\"https://cdn.iconscout.com/icon/free/png-256/edit-2653317-2202989.png\" alt=\"\" class=\" token-owner-logo\" align=\"right\"></a>  <a href=\"newlicensing.html?rtype=" + obj1.get("licensingName") + "\"><img src=\"https://cdn.icon-icons.com/icons2/1744/PNG/512/3643772-archive-archives-document-folder-open_113445.png\" alt=\"\" class=\" token-owner-logo\" align=\"right\"></a> </div>";
                         }
                         // alert(JSON.stringify());
-                        $strm += "<div class=\"token-card \" \"> <div> <img src=\"" + $img + "\" alt=\" \" class=\" token-owner-logo \" align=\"left \"> </div>" + $menu_ic + "<p></p> <img src=\"" + $img + "\" class=\"collectible-img-top \" alt=\"... \"> <p></p> <div class=\"token-card-body \"> <h5 class=\"collectible-title \">" + obj1.get("licensingName") + "</h5> <P class=\"collectible-card-cost \"><b>$" + obj1.get("licensingCost") + "</b></P> <a href=\"licensingProduct.html?userId=" +$username+"&objId="+ obj1.id  +"\"> <button type=\"button \" class=\"btn btn-danger btn-lg \">BUY</button></a> </div></div>";
+                        $strm += "<div class=\"token-card \" \"> <div></div>" + "<p></p> <img src=\"" + $img + "\" class=\"collectible-img-top \" alt=\"... \"> <p></p> <div class=\"token-card-body \"> <h5 class=\"collectible-title \">" + obj1.get("licensingName") + "</h5> <P class=\"collectible-card-cost \"><b>$" + obj1.get("licensingCost") + "</b></P> <a href=\"licensingProduct.html?userId=" + $username + "&objId=" + obj1.id + "\"> <button type=\"button \" class=\"btn btn-danger btn-lg \">BUY</button></a> </div></div>";
                     }
                     document.getElementById("mainbkp3").innerHTML = $strm;
                 } catch ($e) {

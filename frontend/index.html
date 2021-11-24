@@ -61,14 +61,14 @@
             </div>
 
             <div id="prepare">
-                <button class="btn btn-primary" id="btn-connect">
-                    Connect wallet
+                <button class="btn btn-danger" id="btn-connect">
+                    Connect Mobile
                 </button>
             </div>
 
             <div id="connected" style="display: none">
-                <button class="btn btn-primary" id="btn-disconnect">
-                    Disconnect wallet
+                <button class="btn btn-danger" id="btn-disconnect">
+                    Disconnect Mobile
                 </button>
             </div>
             &nbsp;
@@ -284,11 +284,7 @@
         Moralis.initialize("rDecx1uN0CRZ8QWRxqjDeWEdc9P9ozhtp5xJjH5v"); // APP ID
         Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
 
-        async function logoutNow() {
-            await Moralis.User.logOut();
-            window.location.assign("../index.html");
-        }
-
+      
         async function searchUser() {
             try {
                 $str = document.getElementById("searchbar").value;
@@ -305,11 +301,9 @@
         }
     </script>
     <script type="text/javascript" src="https://unpkg.com/web3@1.2.11/dist/web3.min.js"></script>
-    <script type="text/javascript"
-        src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.6.6/dist/umd/index.min.js"></script>
     <script type='text/javascript' src='https://widget.freshworks.com/widgets/70000002336.js' async defer></script>
-    <script type="text/javascript"
-        src="https://unpkg.com/@walletconnect/qrcode-modal@1.2.1/dist/umd/index.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@walletconnect/qrcode-modal@1.6.6/dist/umd/index.min.js"></script>
     <!-- <script type="text/javascript"  src="https://www.jsdelivr.com/package/npm/@walletconnect/qrcode-modal"></script> -->
     <!-- <script src="javascript/search.js "></script> -->
     <script type="module" src="javascript/walletConnect.js "></script>

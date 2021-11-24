@@ -104,7 +104,7 @@
                 alt="Profile image example" width="136px" height="136px" />
             <div class="cnProfile-text">
                 <h1 class="profileName">Isaac Newton</h1>
-                <span class>Eureka!</span>
+                <span class="profileBio">Eureka!</span>
                 <p></p>
             </div>
         </div>
@@ -167,7 +167,7 @@
     </div>
     <!-- Profile  End -->
 
-
+    <hr>
 
     <!-- Footer Start -->
     <footer class="footer ">
@@ -223,9 +223,6 @@
     <script>
         const user = Moralis.User.current();
         if (user) {
-            const userProfileImageSlug = user.id.substring(4,8);
-            const profileImgElement = document.querySelector('.cn-profile-image');
-            profileImgElement.setAttribute("src", "https://avatars.dicebear.com/api/miniavs/"+userProfileImageSlug+".svg?mood[]=happy&backgroundColor=white");
 
             document.getElementById("signoutButton").style.display = "block";
             document.getElementById("signinButton").style.display = "none";
