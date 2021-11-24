@@ -1,4 +1,5 @@
-const BACKEND_URL = 'http://35.225.45.102';
+const BACKEND_URL = 'http://34.70.138.124';
+// const BACKEND_URL = 'http://localhost:8080'
 const STRIPE_PUBLISHABLE_KEY = 'pk_test_51JbPGjSDIAUQ0zT7QrDZqVpznfVEDLAxQc0iM2lLdXpJ1bZMsdGkkNFW9sOpbeWuKNBqIYVERhc6zEoZDDfTuQUu00nUonCHip';
 
 // utils
