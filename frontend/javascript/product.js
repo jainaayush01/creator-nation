@@ -74,13 +74,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const currentBid = document.querySelector('.currentBid')
                 const description = document.querySelector('.description')
                 const creatorName = document.querySelector('.creatorName')
-                const productImageDisplay = document.querySelector('.productImageDisplay')
+                const productImage = document.querySelector('.product-image')
                 const paymentModalTokenPrice = document.querySelector("#payment-modal-token-price");
                 productName.innerHTML = queryResult.get('tokenName');
                 currentBid.innerHTML = '$' + '<div style="display: inline" id="tokenPrice">' + queryResult.get('tokenPrice') + '</div>';
                 description.innerHTML = queryResult.get('tokenBenefits');
                 creatorName.innerHTML = params.userId
-                // productImageDisplay.setAttribute('src', queryResult.get('tokenFile')._url)
+                console.log(queryResult.get('tokenFile')._url)
+                if (queryResult.get('tokenFile')._name.split('.')[1] === 'jpg' || queryResult.get('tokenFile')._name.split('.')[1] === 'png') {
+                    productImageDisplay.setAttribute('src', queryResult.get('tokenFile')._url)
+
+                } else {
+                    productImage.innerHTML = "<video controls> <source src=" + queryResult.get('tokenFile')._url + " type='video/mp4'></video>"
+                }
                 paymentModalTokenPrice.value = queryResult.get('tokenPrice');
 
                 console.log(queryResult);
@@ -128,7 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const productImageDisplay = document.querySelector('.productImageDisplay')
                 const paymentModalTokenPrice = document.querySelector("#payment-modal-token-price");
                 productName.innerHTML = queryResult.get('licensingName');
-                currentBid.innerHTML = '$' + '<div style="display: inline" id="tokenPrice">' + queryResult.get('licensingPrice') + '</div>';
+                currentBid.innerHTML = '$' + '<div style="display: inline" id="tokenPrice">' + queryResult.get('licensingCost') + '</div>';
                 description.innerHTML = 'Licensing Type: ' + queryResult.get('licensingType') + "Licensing Agreement: " + queryResult.get('licensingAgreement');
                 creatorName.innerHTML = params.userId
                 productImageDisplay.setAttribute('src', queryResult.get('licensingFile')._url)
@@ -219,7 +225,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             //     // set the provider you want from Web3.providers
             //     web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
             // }
-            
+
             // let web3 = new Moralis.Web3();
             // const contract = new web3.eth.Contract(NFTContract.abi, NFTContractAddress);
             // let tokenId = document.querySelector("#tokenId")?.innerHTML;

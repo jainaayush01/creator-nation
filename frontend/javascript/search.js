@@ -17,7 +17,7 @@ async function searchUser() {
             alert("Please Enter Value for search");
         }
     } catch ($e) {
-        alert($e + "");
+        console.log($e);
     }
 
 
