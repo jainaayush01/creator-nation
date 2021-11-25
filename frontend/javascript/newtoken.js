@@ -132,11 +132,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         token.set('username', Moralis.User.current());
 
         const tokenName = document.getElementById("tokenName").value;
-        const tokenPrice = document.getElementById("tokenPrice").value;
-        const tokenSupplyLimit = document.getElementById("tokenSupplyLimit").value;
+        const tokenPrice = parseInt(document.getElementById("tokenPrice").value);
+        const tokenSupplyLimit = parseInt(document.getElementById("tokenSupplyLimit").value);
         const mediaUrl = tokenPic;
         const uri = "hello"
-
+        console.log({tokenSupplyLimit})
         const NFTContract = await fetch("../../Smart Contract/artifacts/contracts/NFT.sol/CreatorNation.json")
             .then(res => res.json())
             .catch(err => {

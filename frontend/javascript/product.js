@@ -207,14 +207,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // }
     // getContractABI();
 
-    const NFTContract = await fetch("../../Smart Contract/artifacts/contracts/NFT.sol/CreatorNation.json")
-        .then(res => res.json())
-        .catch(err => {
-            console.log(err);
-        });
-    const NFTContractAddress = '0xB31F46049c18771adE8B257f909CbDF7Df4cA51d'
-    console.log(NFTContract);
-
+    
     let buyCrypto = document.querySelector("#buyCrypto");
 
     buyCrypto.onclick = async () => {
@@ -232,6 +225,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             // tokenId = web3.utils.toBN(tokenId);
             // console.log(contract);
             // console.log(contract.methods.contractURI());
+            
+            const NFTContract = await fetch("../../Smart Contract/artifacts/contracts/NFT.sol/CreatorNation.json")
+                .then(res => res.json())
+                .catch(err => {
+                    console.log(err);
+                });
+            const NFTContractAddress = '0x36DF084988e0605C1e2C0329A1432d00d9bfB21f'
+            console.log(NFTContract);
+
             let options = {
                 contractAddress: NFTContractAddress,
                 abi: NFTContract.abi,
@@ -242,8 +244,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             }
             let web3 = await Moralis.enableWeb3();
-            const buyTokens = await (Moralis.executeFunction(options));
-            console.log(buyTokens);
+            // console.log(web3);
+            let contract = new web3.eth.Contract(NFTContract.abi, NFTContractAddress);
+            console.log(contract);
+            console.log(contract.methods.buyTokensUsingCrypto(1, 1));
+            let txn = contract.methods.buyTokensUsingCrypto(1, 1);
+            txn.call();
+            // const buyTokens = await (Moralis.executeFunction(options));
+            // console.log(buyTokens);
 
         }
         catch (err) {
