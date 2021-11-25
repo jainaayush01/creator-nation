@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             .catch(err => {
                 console.log(err);
             });
-        const NFTContractAddress = '0xB31F46049c18771adE8B257f909CbDF7Df4cA51d'
+        const NFTContractAddress = '0x36DF084988e0605C1e2C0329A1432d00d9bfB21f'
         console.log(NFTContract);
 
         let creatorAddress = accounts[0];

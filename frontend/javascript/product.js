@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const currentBid = document.querySelector('.currentBid')
                 const description = document.querySelector('.description')
                 const creatorName = document.querySelector('.creatorName')
-                const productImage = document.querySelector('.product-image')
+                const productImageDisplay = document.querySelector('.product-image')
                 const paymentModalTokenPrice = document.querySelector("#payment-modal-token-price");
                 productName.innerHTML = queryResult.get('tokenName');
                 currentBid.innerHTML = '$' + '<div style="display: inline" id="tokenPrice">' + queryResult.get('tokenPrice') + '</div>';
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     productImageDisplay.setAttribute('src', queryResult.get('tokenFile')._url)
 
                 } else {
-                    productImage.innerHTML = "<video controls> <source src=" + queryResult.get('tokenFile')._url + " type='video/mp4'></video>"
+                    productImageDisplay.innerHTML = "<video controls> <source src=" + queryResult.get('tokenFile')._url + " type='video/mp4'></video>"
                 }
                 paymentModalTokenPrice.value = queryResult.get('tokenPrice');
 
@@ -209,23 +209,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     
     let buyCrypto = document.querySelector("#buyCrypto");
-
     buyCrypto.onclick = async () => {
         try {
-            // if (typeof ethereum !== 'undefined') {
-            //     web3 = new Web3(ethereum);
-            // } else {
-            //     // set the provider you want from Web3.providers
-            //     web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
-            // }
-
-            // let web3 = new Moralis.Web3();
-            // const contract = new web3.eth.Contract(NFTContract.abi, NFTContractAddress);
-            // let tokenId = document.querySelector("#tokenId")?.innerHTML;
-            // tokenId = web3.utils.toBN(tokenId);
-            // console.log(contract);
-            // console.log(contract.methods.contractURI());
-            
             const NFTContract = await fetch("../../Smart Contract/artifacts/contracts/NFT.sol/CreatorNation.json")
                 .then(res => res.json())
                 .catch(err => {
@@ -234,6 +219,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             const NFTContractAddress = '0x36DF084988e0605C1e2C0329A1432d00d9bfB21f'
             console.log(NFTContract);
 
+            
+            let tokenPrice = document.querySelector("#tokenPrice").innerHTML;
+            console.log(tokenPrice);
+            console.log({tokenPrice: parseInt(tokenPrice)});
+
+            let web3 = await Moralis.enableWeb3();
+            // console.log(web3);
+            // let contract = new web3.eth.Contract(NFTContract.abi, NFTContractAddress);
+            // console.log(contract);
+            // console.log(contract.methods.buyTokensUsingCrypto(1, 1));
+            // let txn = await contract.methods.buyTokensUsingCrypto(1, 1).send();
+            // console.log(txn);
+            // let txn = contract.methods.buyTokensUsingCrypto(1, 1).estimateGas({gas: 100000000000}, (err, gasAmount) => {
+
             let options = {
                 contractAddress: NFTContractAddress,
                 abi: NFTContract.abi,
@@ -241,18 +240,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 params: {
                     _tokenId: 1,
                     _amount: 1
-                }
+                },
+                msgValue: Moralis.Units.ETH("0.1") // tokenValue comes here from chainlink price feed smart contract
             }
-            let web3 = await Moralis.enableWeb3();
-            // console.log(web3);
-            let contract = new web3.eth.Contract(NFTContract.abi, NFTContractAddress);
-            console.log(contract);
-            console.log(contract.methods.buyTokensUsingCrypto(1, 1));
-            let txn = contract.methods.buyTokensUsingCrypto(1, 1);
-            txn.call();
-            // const buyTokens = await (Moralis.executeFunction(options));
-            // console.log(buyTokens);
-
+            const buyTokens = await (Moralis.executeFunction(options));
+            console.log(buyTokens);
         }
         catch (err) {
             console.log(err);

@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         submitted = true;
         form.querySelector('#submit').disabled = true;
 
-        const currentBid = parseInt(document.querySelector('#payment-modal-token-price').value);
+        const currentBid = document.querySelector('#payment-modal-token-price').value;
         const userEthAddress = localStorage.getItem('userEthAddress'); 
         const tokenId = document.querySelector("#tokenId")?.innerHTML;
 
