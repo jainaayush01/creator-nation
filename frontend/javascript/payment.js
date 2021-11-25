@@ -54,8 +54,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (submitted) { return; }
         submitted = true;
         form.querySelector('#submit').disabled = true;
+
         const currentBid = parseInt(document.querySelector('#payment-modal-token-price').value);
+        const userEthAddress = localStorage.getItem('userEthAddress'); 
+        const tokenId = document.querySelector("#tokenId")?.innerHTML;
+
         console.log(currentBid);
+        console.log(userEthAddress);
+        console.log(tokenId);
 
         // Make a call to the server to create a new
         // payment intent and store its client_secret.
@@ -70,6 +76,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                     currency: 'inr',
                     amount: currentBid,
                     paymentMethodType: 'card',
+                    userEthAddress: userEthAddress,
+                    tokenId: tokenId,
+                    tokenNos: 1
                 }),
             }
         ).then((r) => r.json());

@@ -83,12 +83,16 @@ async function uploadEthAddress(address){
       if(!userAddress){
         userDataObj.set("ethAddress", address);
         let result = await userDataObj.save();
+        localStorage.setItem('userEthAddress', address);
         console.log("SuccessFully Set User Address", result);
       }else{
         console.log("Already Found Address: ",userAddress);
         if(userAddress!=address){
           alert("Registered Address and Wallet Connect Address Does not Match");
           provider.disconnect();
+        }
+        else {
+          localStorage.setItem('userEthAddress', address);
         }
       }
     }catch(err){
