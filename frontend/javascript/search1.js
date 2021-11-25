@@ -9,7 +9,6 @@ query.find()
         console.log(results)
 
         try {
-<<<<<<< HEAD
             $strm = "";
             for (let i = 0; i < results.length; i++) {
                 const obj1 = results[i];
@@ -20,15 +19,6 @@ query.find()
                 $strm += "<div class=\" card_col_homepage \"><a href=\"profile.html?userId=" + obj1.get("username") + "\"> <div class=\" card \" id=\" individualcard \" style=\"text-align: center;\"><img src=\""+'https://avatars.dicebear.com/api/miniavs/user.svg?mood[]=happy'+"\" style=\"height:100px; width:100px; margin-left:80px;\"><br><h3>" + obj1.get('username') + "</h3></div></a></div>";
 
                 }
-=======
-            if (results) {
-                $strm = "";
-                for (let i = 0; i < results.length; i++) {
-                    const obj1 = results[i];
-                    $strm += "<div class=\" card_col_homepage \"><a href=\"profile.html?userId=" + obj1.get("username") + "\"> <div class=\" card \" id=\" individualcard \" style=\"text-align: center;\"><img src=\""+obj1.get('userProfilePicture')?._url+"\" style=\"height:100px; width:100px; margin-left:80px;\"><br><h3>" + obj1.get('username') + "</h3></div></a></div>";
-                }
-                document.getElementById("search_results").innerHTML = $strm;
->>>>>>> 24af43766ea3419fed503c4d8d1b4a049dd33ae2
             }
         } catch ($e) {
             console.log($e + "bkp");
