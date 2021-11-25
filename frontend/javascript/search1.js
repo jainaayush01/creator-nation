@@ -20,6 +20,7 @@ query.find()
 
                 }
             }
+            document.getElementById("search_results").innerHTML = $strm;
         } catch ($e) {
             console.log($e + "bkp");
         }
