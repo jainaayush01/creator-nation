@@ -74,7 +74,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const currentBid = document.querySelector('.currentBid')
                 const description = document.querySelector('.description')
                 const creatorName = document.querySelector('.creatorName')
-                const productImageDisplay = document.querySelector('.product-image')
+                const productImage = document.querySelector('.product-image')
+                const productImageDisplay = document.querySelector(".productImageDisplay");
+
                 const paymentModalTokenPrice = document.querySelector("#payment-modal-token-price");
                 productName.innerHTML = queryResult.get('tokenName');
                 currentBid.innerHTML = '$' + '<div style="display: inline" id="tokenPrice">' + queryResult.get('tokenPrice') + '</div>';
@@ -85,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     productImageDisplay.setAttribute('src', queryResult.get('tokenFile')._url)
 
                 } else {
-                    productImageDisplay.innerHTML = "<video controls> <source src=" + queryResult.get('tokenFile')._url + " type='video/mp4'></video>"
+                    productImage.innerHTML = "<video controls> <source src=" + queryResult.get('tokenFile')._url + " type='video/mp4'></video>"
                 }
                 paymentModalTokenPrice.value = queryResult.get('tokenPrice');
 
