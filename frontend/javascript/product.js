@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const description = document.querySelector('.description')
                 const creatorName = document.querySelector('.creatorName')
                 const productImage = document.querySelector('.product-image')
+                const productImageDisplay = document.querySelector(".productImageDisplay");
                 const paymentModalTokenPrice = document.querySelector("#payment-modal-token-price");
                 productName.innerHTML = queryResult.get('tokenName');
                 currentBid.innerHTML = '$' + '<div style="display: inline" id="tokenPrice">' + queryResult.get('tokenPrice') + '</div>';
