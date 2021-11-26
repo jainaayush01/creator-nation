@@ -123,4 +123,4 @@ async function showConnect(){
     
 
 await showConnect();
-sign()
+await sign()
