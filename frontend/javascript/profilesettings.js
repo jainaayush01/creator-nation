@@ -3,26 +3,52 @@ Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
 var url = window.location.href;
 const urlParams = new URLSearchParams(window.location.search);
 
-const UserProfile = Moralis.Object.extend("User");
-const query = new Moralis.Query(UserProfile);
-const userProfile = new UserProfile(user.id);
-userProfile.set('bio','hellooooSample')
+// const UserProfile = Moralis.Object.extend("User");
+// const userProfile = new UserProfile(user.id);
+// userProfile.set('bio','hellooooSample')
 
 // console.log(user)
-query.equalTo("objectId",user.id)
+// query.equalTo("objectId",user.id)
+console.log(user.id)
 
-query.find()
-.then((result) => {
-    try {
-        for (let i = 0; i < result.length; i++) {
-            const obj1 = result[i];
-            userProfile.set('bio','hellooooSample')
-            // $strm += "<div class=\" card_col_homepage \"><a href=\"profile.html?userId=" + obj1.get("username") + "\"> <div class=\" card \" id=\" individualcard \" style=\"text-align: center;\"><img src=\""+obj1.get('userProfilePicture')._url+"\" style=\"height:100px; width:100px; margin-left:80px;\"><br><h3>" + obj1.get('username') + "</h3></div></a></div>";
-        }
-    }catch(err) {
-        console.log(err)
-    }
-})
+let testProfile;
+
+getUsers = async () => {
+const query = new Moralis.Query("_User");
+query.equalTo("objectId",user.id)
+const users = await query.find()
+testProfile = users
+console.log(users)
+}
+
+
+// query.find()
+// .then((result) => {
+//     try {
+//         for (let i = 0; i < result.length; i++) {
+//             const obj1 = result[i];
+//             console.log(obj1)
+            
+//             // $strm += "<div class=\" card_col_homepage \"><a href=\"profile.html?userId=" + obj1.get("username") + "\"> <div class=\" card \" id=\" individualcard \" style=\"text-align: center;\"><img src=\""+obj1.get('userProfilePicture')._url+"\" style=\"height:100px; width:100px; margin-left:80px;\"><br><h3>" + obj1.get('username') + "</h3></div></a></div>";
+//         }
+//     }catch(err) {
+//         console.log(err)
+//     }
+// })
+
+const setProfileSettings = async () => {
+    getUsers()
+
+    const User = Moralis.Object.extend("_User");
+    const userInstance = new User();
+    
+    userInstance.set("username",'testSampleName')
+    await userInstance.save();
+     console.log(userInstance);
+
+}
+
+// setProfileSettings(testProfile)
 
 
 const profileName = document.querySelector("#profileName");

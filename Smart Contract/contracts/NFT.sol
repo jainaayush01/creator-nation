@@ -66,7 +66,7 @@ contract CreatorNation is ERC1155, Ownable, ReentrancyGuard {
         uint256 total,
         string memory uri,
         string memory mediaUrl
-    ) public onlyOwner {
+    ) public {
         require(
             creatorTokens[creatorAddress].length < 6,
             "max of 6 Tokens only"
