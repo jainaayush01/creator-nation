@@ -1,5 +1,6 @@
 Moralis.initialize("rDecx1uN0CRZ8QWRxqjDeWEdc9P9ozhtp5xJjH5v"); // APP ID
 Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
+var web3;
 //  Create WalletConnect Provider
 const provider = new WalletConnectProvider.default({
   infuraId: "e992178cee28442e86aa8c6611d7d472",
@@ -9,9 +10,7 @@ const provider = new WalletConnectProvider.default({
   
 });
 
-showConnect();
-
-document.getElementById("btn-connect").addEventListener("click", connectWallet)
+document.getElementById("btn-connect").addEventListener("click", connectWallet);
 
 async function connectWallet(){
   //  Enable session (triggers QR Code modal)
@@ -21,7 +20,7 @@ async function connectWallet(){
     console.log("Connect Address:",provider.accounts[0])
     uploadEthAddress(provider.accounts[0])
     //  Create Web3 instance
-    window.web3 = new Web3(provider);
+    web3 = new Web3(provider);
     document.getElementById("connected").style.display="block";
     document.getElementById("prepare").style.display="none";
   }catch(err){
@@ -43,12 +42,14 @@ provider.on("chainChanged", (chainId) => {
 // Subscribe to session disconnection
 provider.on("disconnect", (code, reason) => {
   console.log(code, reason);
+  document.getElementById("connected").style.display="none";
+  document.getElementById("prepare").style.display="block";
 });
 
 document.getElementById("btn-disconnect").addEventListener("click", async()=>{
   try{
     await provider.disconnect()
-    window.web3 = new Web3();
+    web3 = new Web3();
     document.getElementById("connected").style.display="none";
     document.getElementById("prepare").style.display="block";
   }catch(err){
@@ -57,13 +58,14 @@ document.getElementById("btn-disconnect").addEventListener("click", async()=>{
 
 async function sign(){
   if(provider.connected){
-    document.getElementById("connected").style.display="block";
-    document.getElementById("prepare").style.display="none";
-    console.log(provider);
-      // const chainId = await window.web3.eth.chainId();
-      // console.log(chainId);
-      const signedMessage = await provider.request("sign","Hello To Creator Nation");
+    console.log("signing")
+      console.log(web3)
+      let accounts = await web3.eth.getAccounts()
+      const signedMessage = await web3.eth.sign("hello",accounts[0]);
       console.log(signedMessage);
+      // const result = await provider.connector.signMessage([accounts[0], "hello"]);
+      // console.log(provider.connector)
+      // console.log(result)
   }
 }
 
@@ -108,10 +110,13 @@ async function showConnect(){
     if(Moralis.User.current().get("authData")){
       document.getElementById("prepare").style.display="none";
     }else{
-      connectWallet();
+      await connectWallet();
     }
   }else{
     document.getElementById("prepare").style.display="none";
   }
 }
     
+
+await showConnect();
+sign()
