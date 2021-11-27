@@ -11,8 +11,7 @@ async function searchUser() {
         $str = document.getElementById("searchbar").value;
         if ($str.length > 0) {
             window.sessionStorage.setItem("search_data", $str);
-            window.location.assign("search.html");
-
+            window.location.assign("profile.html?userId="+$str);
         } else {
             alert("Please Enter Value for search");
         }

@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     var url = window.location.href;
     const urlParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlParams.entries());
-
+    var tokenId;
     if (window.location.pathname.includes('product')) {
         const CreatorToken = Moralis.Object.extend('CreatorToken');
         const query = new Moralis.Query(CreatorToken);
@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.log(queryResult);
                 const productId = document.querySelector('.productId')
                 productId.innerHTML = '<div id="tokenId">' + queryResult.id + '</div>';
+                tokenId = queryResult.id;
             })
             .catch(err => {
                 console.log(err)
@@ -57,8 +58,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 paymentModalTokenPrice.value = queryResult.get('tokenPrice');
 
                 console.log(queryResult);
-                const productId = document.querySelector('.productId')
-                productId.innerHTML = `<div id="tokenId">${queryResult.id}</div>`
+                // const productId = document.querySelector('.productId')
+                // productId.innerHTML = `<div id="tokenId">${queryResult.id}</div>`
+                tokenId = queryResult.id;
             })
             .catch(err => {
                 console.log(err)
@@ -82,8 +84,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 productImageDisplay.setAttribute('src', queryResult.get('licensingFile')._url)
                 paymentModalTokenPrice.value = queryResult.get('tokenPrice');
                 console.log(queryResult);
-                const productId = document.querySelector('.productId')
-                productId.innerHTML = `<div id="tokenId">${queryResult.id}</div>`
+                // const productId = document.querySelector('.productId')
+                // productId.innerHTML = `<div id="tokenId">${queryResult.id}</div>`
+                tokenId = queryResult.id;
             })
             .catch(err => {
                 console.log(err)
@@ -108,8 +111,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 paymentModalTokenPrice.value = queryResult.get('tokenPrice');
 
                 console.log(queryResult);
-                const productId = document.querySelector('.productId')
-                productId.innerHTML = `<div id="tokenId">${queryResult.id}</div>`
+                // const productId = document.querySelector('.productId')
+                // productId.innerHTML = `<div id="tokenId">${queryResult.id}</div>`
+                tokenId = queryResult.id;
             })
             .catch(err => {
                 console.log(err)
@@ -138,32 +142,54 @@ document.addEventListener('DOMContentLoaded', async () => {
     let buyCrypto = document.querySelector("#buyCrypto");
     buyCrypto.onclick = async () => {
         try {
-            let tokenPrice = document.querySelector("#tokenPrice").innerHTML;
-            console.log(tokenPrice);
-            console.log({ tokenPrice: parseInt(tokenPrice) });
+            if (window.location.pathname.includes('product')) {
+                let tokenPrice = document.querySelector("#tokenPrice").innerHTML;
+                console.log(tokenPrice);
+                console.log({ tokenPrice: parseInt(tokenPrice) });
+                let buyTokensCrypto = CnContract.methods.buyTokensUsingCrypto(1, 1).send({ from: userAccount });
+                console.log(buyTokensCrypto);
+            }
+            else if (window.location.pathname.includes('membershipProduct')) {
+                let Memberships = Moralis.Object.extend('Memberships')
+                let query = new Moralis.Query(Memberships);
+                query.equalTo("objectId", params.objId);
+                console.log(query);
+                let data = await query.find();
+                console.log(data);
+                let userId = data[0].get("username").id;
+                console.log(userId)
+                let User = Moralis.Object.extend('_User');
+                let userQuery = new Moralis.Query(User);
+                userQuery.equalTo("objectId", userId);
+                let userData = await userQuery.find();
+                console.log(userData);
+                let tokenOwnerAddress = userData[0].get("ethAddress");
+                console.log(tokenOwnerAddress);
+                let tokenPrice = document.querySelector("#tokenPrice").innerHTML;
+                console.log(tokenPrice);
+                console.log(userAccount);
+                let maticPrice = 1000;
+                let maticPrice2 = await ChainlinkContract.methods.getLatestPrice().call();
+                console.log(maticPrice2);
+                try {
+                    let txn = await web3.eth.sendTransaction({ from: userAccount, to: tokenOwnerAddress, value: web3.utils.toWei((tokenPrice/maticPrice).toString(), "ether")});
+                    console.log(txn);
+                }catch(err){
+                    console.log(err);
+                }
 
-            // console.log(web3);
-            // let contract = new web3.eth.Contract(NFTContract.abi, NFTContractAddress);
-            // console.log(contract);
-            // console.log(contract.methods.buyTokensUsingCrypto(1, 1));
-            // let txn = await contract.methods.buyTokensUsingCrypto(1, 1).send();
-            // console.log(txn);
-            // let txn = contract.methods.buyTokensUsingCrypto(1, 1).estimateGas({gas: 100000000000}, (err, gasAmount) => {
+            }
+            else if (window.location.pathname.includes('licensingProduct')) {
+                let tokenPrice = document.querySelector("#tokenPrice").innerHTML;
+                console.log(tokenPrice);
+                console.log({ tokenPrice: parseInt(tokenPrice) });
+                let buyTokensCrypto = CnContract.methods.buyTokensUsingCrypto(1, 1).send({ from: userAccount });
+                console.log(buyTokensCrypto);
+            }
+            else if (window.location.pathname.includes('connectProduct')) {
+                
+            }
 
-            let buyTokensCrypto = CnContract.methods.buyTokensUsingCrypto(1, 1).send({ from: userAccount });
-            console.log(buyTokensCrypto);
-            // let options = {
-            //     contractAddress: NFTContractAddress,
-            //     abi: NFTContract.abi,
-            //     functionName: 'buyTokensUsingCrypto',
-            //     params: {
-            //         _tokenId: 1,
-            //         _amount: 1
-            //     },
-            //     msgValue: Moralis.Units.ETH("0.1") // tokenValue comes here from chainlink price feed smart contract
-            // }
-            // const buyTokens = await (Moralis.executeFunction(options));
-            // console.log(buyTokens);
         }
         catch (err) {
             console.log(err);
