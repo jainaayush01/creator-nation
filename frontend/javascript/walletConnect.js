@@ -124,3 +124,14 @@ async function showConnect(){
 
 await showConnect();
 await sign();
+
+var NFTContract = fetch("../../Smart Contract/artifacts/contracts/NFT.sol/CreatorNation.json")
+  .then(res => res.json())
+  .catch(err => {
+      console.log(err);
+  });
+var NFTContractAddress = '0xFfeD6cd9BDDF59F2b33C89a3edCFd365B0665451'
+
+var CnContract = new web3.eth.Contract(NFTContract.abi, NFTContractAddress);
+
+var userAccount; // plz give me this

@@ -3,60 +3,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     Moralis.initialize("rDecx1uN0CRZ8QWRxqjDeWEdc9P9ozhtp5xJjH5v"); // APP ID
     Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
     document.querySelector("#tokenButton").onclick = createNow;
-    let accounts
-
-    async function checkWallet() {
-
-        try {
-            const { ethereum } = window;
-
-            if (!ethereum) {
-                console.log("metamask not installed")
-                let tokenCreateButton = document.querySelector("#tokenButton");
-                tokenCreateButton.disabled = true;
-                alert('Install and connect to metamask to create tokens');
-            } else {
-                console.log("eth obj is --> ", ethereum);
-                accounts = await ethereum.request({ method: 'eth_accounts' });
-
-                if (accounts.length !== 0) {
-                    const account = accounts[0];
-                    console.log('Found an authorised account!', account);
-
-                } else {
-                    console.log('no authorised account found....');
-                }
-            }
-        } catch (err) {
-            console.log(err);
-        }
-
-
-    }
-
-
-
-    async function connectWallet() {
-        try {
-            const { ethereum } = window;
-
-            if (!ethereum) {
-                console.log('please install metamask');
-            } else {
-                const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-
-
-
-                // console.log("Connected", accounts[0]);
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-
-    checkWallet();
-    connectWallet();
 
     async function logoutNow() {
         await Moralis.User.logOut();
@@ -87,7 +33,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                         document.getElementById("tokenRoyalties").value = obj1.get("tokenRoyalties");
                         document.getElementById("tokenID").value = obj1.get("tokenName");
                         document.getElementById("sub_bt").value = "Update";
-
                     }
                 } catch ($e) {
                     alert($e + "bkp");
@@ -97,6 +42,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 alert(JSON.stringify(error));
             });
     }
+
     async function createNow() {
         const NewToken = Moralis.Object.extend("CreatorToken");
         const token = new NewToken();
@@ -124,48 +70,41 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
 
-        token.set('tokenName', document.getElementById("tokenName").value);
-        token.set('tokenPrice', document.getElementById("tokenPrice").value);
-        token.set('tokenBenefits', tokenQuill);
-        token.set('tokenSupplyLimit', document.getElementById("tokenSupplyLimit").value);
-        token.set('tokenRoyalties', document.getElementById("tokenRoyalties").value);
-        token.set('username', Moralis.User.current());
-
         const tokenName = document.getElementById("tokenName").value;
         const tokenPrice = parseInt(document.getElementById("tokenPrice").value);
         const tokenSupplyLimit = parseInt(document.getElementById("tokenSupplyLimit").value);
         const mediaUrl = tokenPic;
         const uri = "hello"
-        console.log({tokenSupplyLimit})
-        const NFTContract = await fetch("../../Smart Contract/artifacts/contracts/NFT.sol/CreatorNation.json")
-            .then(res => res.json())
-            .catch(err => {
-                console.log(err);
-            });
-        const NFTContractAddress = '0x36DF084988e0605C1e2C0329A1432d00d9bfB21f'
-        console.log(NFTContract);
 
-        let creatorAddress = accounts[0];
-        console.log(creatorAddress);
+        token.set('tokenName', tokenName);
+        token.set('tokenPrice', tokenPrice);
+        token.set('tokenBenefits', tokenQuill);
+        token.set('tokenSupplyLimit', tokenSupplyLimit);
+        token.set('tokenRoyalties', document.getElementById("tokenRoyalties").value);
+        token.set('username', Moralis.User.current());
+        
+        console.log({ tokenSupplyLimit })
+
         try {
-            let web3 = await Moralis.enableWeb3();
-            let options = {
-                contractAddress: NFTContractAddress,
-                abi: NFTContract.abi,
-                functionName: 'mint',
-                params: {
-                    creatorAddress: creatorAddress,
-                    tokenName: tokenName,
-                    cost: tokenPrice,
-                    total: tokenSupplyLimit,
-                    uri: uri,
-                    mediaUrl: mediaUrl
-                }
-            }
+            // let options = {
+            //     contractAddress: NFTContractAddress,
+            //     abi: NFTContract.abi,
+            //     functionName: 'mint',
+            //     params: {
+            //         creatorAddress: creatorAddress,
+            //         tokenName: tokenName,
+            //         cost: tokenPrice,
+            //         total: tokenSupplyLimit,
+            //         uri: uri,
+            //         mediaUrl: mediaUrl
+            //     }
+            // }
             // let web3 = await Moralis.enableWeb3();
-            const contractURL = await (Moralis.executeFunction(options));
-            console.log(contractURL);
+            // const contractURL = await (Moralis.executeFunction(options));
+            // console.log(contractURL);
 
+            var tokenMint = CnContract.methods.mint(creatorAddress, tokenName, tokenPrice, tokenSupplyLimit, uri, mediaUrl).send({ from: userAccount });
+            console.log(tokenMint);
             await token.save();
             window.location.assign("../index.html");
         }
