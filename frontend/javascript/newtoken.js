@@ -71,8 +71,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         const tokenName = document.getElementById("tokenName").value;
-        const tokenPrice = parseInt(document.getElementById("tokenPrice").value);
-        const tokenSupplyLimit = parseInt(document.getElementById("tokenSupplyLimit").value);
+        const tokenPrice = document.getElementById("tokenPrice").value;
+        const tokenSupplyLimit = document.getElementById("tokenSupplyLimit").value;
         const mediaUrl = tokenPic;
         const uri = "hello"
         const tokenRoyalities = document.getElementById("tokenRoyalties").value;
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // const contractURL = await (Moralis.executeFunction(options));
             // console.log(contractURL);
 
-            var tokenMint = CnContract.methods.mint(creatorAddress, tokenName, tokenPrice, tokenSupplyLimit, uri, mediaUrl).send({ from: userAccount });
+            var tokenMint = CnContract.methods.mint(userAccount, tokenName, tokenPrice, tokenSupplyLimit, uri, mediaUrl).send({ from: userAccount });
             console.log(tokenMint);
             await token.save();
             window.location.assign("../index.html");
