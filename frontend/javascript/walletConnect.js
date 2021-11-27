@@ -167,7 +167,9 @@ async function showConnect(){
   }
 }
 
+async function main(){
+  await showConnect();
+  // await sign();
+  console.log(verifiedConnect)
+}
 
-await showConnect();
-// await sign();
-console.log(verifiedConnect)
