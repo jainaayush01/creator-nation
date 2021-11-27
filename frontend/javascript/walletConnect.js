@@ -73,8 +73,19 @@ async function sign(){
     console.log("signing")
       console.log(web3)
       let accounts = await web3.eth.getAccounts()
-      const signedMessage = await web3.eth.sign("hello",accounts[0]);
-      console.log(signedMessage);
+      let abt = await CnContract.methods.buyTokensUsingCrypto(1,1).encodeABI();
+
+      let tx ={
+        from: userAccount,
+        to: '0xFfeD6cd9BDDF59F2b33C89a3edCFd365B0665451',
+        value: 0,
+        data: await CnContract.methods.buyTokensUsingCrypto(1,1).encodeABI()
+      }
+      // const signedMessage = await web3.eth.SendTransaction(tx,account);
+      console.log(abt);
+      const signedTx = await web3.eth.signTransaction(tx);
+      console.log(signedTx)
+
       // const result = await provider.connector.signMessage([accounts[0], "hello"]);
       // console.log(provider.connector)
       // console.log(result)
@@ -173,3 +184,4 @@ async function main(){
   console.log(verifiedConnect)
 }
 
+main()
