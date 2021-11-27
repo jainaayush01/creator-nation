@@ -1,6 +1,8 @@
 Moralis.initialize("rDecx1uN0CRZ8QWRxqjDeWEdc9P9ozhtp5xJjH5v"); // APP ID
 Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
 var web3;
+var CnContract;
+var accountAddress;
 //  Create WalletConnect Provider
 const provider = new WalletConnectProvider.default({
   infuraId: "e992178cee28442e86aa8c6611d7d472",
@@ -108,11 +110,25 @@ async function uploadEthAddress(address){
 }
 
 
+async function connectMetaMask(){
+  web3 = Moralis.enableWeb3();
+  try {
+    let network=await web3.eth.net.getNetworkType();
+    console.log(network);
+  } catch (error) {
+    alert("Please Connect Metamask!!");
+  }
+
+}
+
+
 async function showConnect(){
   
   if(Moralis.User.current()){
     if(Moralis.User.current().get("authData")){
       document.getElementById("prepare").style.display="none";
+      connectMetaMask();
+      connectContract();
     }else{
       await connectWallet();
     }
