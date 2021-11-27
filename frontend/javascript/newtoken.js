@@ -75,12 +75,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         const tokenSupplyLimit = parseInt(document.getElementById("tokenSupplyLimit").value);
         const mediaUrl = tokenPic;
         const uri = "hello"
+        const tokenRoyalities = document.getElementById("tokenRoyalties").value;
 
         token.set('tokenName', tokenName);
         token.set('tokenPrice', tokenPrice);
         token.set('tokenBenefits', tokenQuill);
         token.set('tokenSupplyLimit', tokenSupplyLimit);
-        token.set('tokenRoyalties', document.getElementById("tokenRoyalties").value);
+        token.set('tokenRoyalties', tokenRoyalities);
         token.set('username', Moralis.User.current());
         
         console.log({ tokenSupplyLimit })

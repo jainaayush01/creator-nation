@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // console.log(txn);
             // let txn = contract.methods.buyTokensUsingCrypto(1, 1).estimateGas({gas: 100000000000}, (err, gasAmount) => {
 
-            let buyTokensCrypto = CnContract.methods.butTokensUsingCrypto(1, 1).send({ from: userAccount });
+            let buyTokensCrypto = CnContract.methods.buyTokensUsingCrypto(1, 1).send({ from: userAccount });
             console.log(buyTokensCrypto);
             // let options = {
             //     contractAddress: NFTContractAddress,
