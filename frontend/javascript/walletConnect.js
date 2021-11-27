@@ -3,8 +3,9 @@ Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
 var web3;
 var CnContract;
 var userAccount; // plz give me this
-var accountAddress =userAccount;
-var verifiedConnect =false;
+var accountAddress = userAccount;
+var verifiedConnect = false;
+var walletType;
 
 //  Create WalletConnect Provider
 const provider = new WalletConnectProvider.default({
@@ -68,7 +69,7 @@ document.getElementById("btn-disconnect").addEventListener("click", async()=>{
 })
 
 async function sign(){
-  if(provider.connected && verifiedConnect){
+  if(verifiedConnect){
     console.log("signing")
       console.log(web3)
       let accounts = await web3.eth.getAccounts()
@@ -138,23 +139,6 @@ async function connectMetaMask(){
 
 }
 
-
-async function showConnect(){
-  
-  if(Moralis.User.current()){ // If User Is logged In then only
-    if(Moralis.User.current().get("authData")){ // If user logged in with Metamask
-      document.getElementById("prepare").style.display="none";
-      await connectMetaMask();
-      await connectContract();
-    }else{// If Logged in With Email- Wallet connect way
-      await connectWalletConnect();
-      await connectContract();
-    }
-  }else{
-    document.getElementById("prepare").style.display="none";
-  }
-}
-
 async function connectContract(){
   console.log("Conencting Contract...")
   let res = await fetch("../../Smart Contract/artifacts/contracts/NFT.sol/CreatorNation.json")
@@ -165,5 +149,25 @@ async function connectContract(){
 
 }
 
+async function showConnect(){
+  
+  if(Moralis.User.current()){ // If User Is logged In then only
+    if(Moralis.User.current().get("authData")){ // If user logged in with Metamask
+      document.getElementById("prepare").style.display="none";
+      await connectMetaMask();
+      await connectContract();
+      walletType = "METAMASK";
+    }else{// If Logged in With Email- Wallet connect way
+      await connectWalletConnect();
+      await connectContract();
+      walletType = "WALLETCONNECT";
+    }
+  }else{
+    document.getElementById("prepare").style.display="none";
+  }
+}
+
+
 await showConnect();
-await sign();
+// await sign();
+console.log(verifiedConnect)
