@@ -32,12 +32,16 @@ Connect - Allows Creators to connect with their supporters over a 30 minute sess
 
 # Creators POV
 Multiple unique Monetisation options. Every Creator and Business gets to choose the option that works for them.
+
 Collect payments through Crypto and Fiat.
+
 Engage better with your core support base by offering token rewards and dividends to your biggest supporters.
 
 # Fans POV
 Invest in your favourite creator today, enjoy the benefits and sell 2 years down the line for a profit. ROI on your investment while enjoying all the privileges for holding!
+
 Earn rewards and token dividends for being a community champion.
+
 License your favourite content and use it without copyright strikes. Love the last 10 seconds of Batman? Buy the NFT from the studio and use it in your youtube video, legally!
 
 # Usecases
@@ -53,22 +57,31 @@ Local Stores Creator Token - Special menu items or discounts to loyal customers.
 A firm believer that the best products are those that deliver a truly excellent user experience to everyone, regardless of whether they are industry experts or not. Watching the entire world struggle to explain the NFT phenomenon, let alone their benefits and the procedure to buy them, struck a chord with me. I built on that thought, talked to a few people, and here is Creator Nation as it is today.
 
 # Accomplishments that we're proud of
-Developed a clean experience that is super user-friendly for Web2 users, thus greatly reducing the barrier to entry.
-Bringing Web2 and Web3 elements together on a single platform.
-Use of ERC 1155 standard to provide non fungible aspect.
-L2 scaling using Polygon for faster UX.
-Decentralised storage using IPFS
-Learning and using Alchemy and Scaffold-ETH.
-Challenges we faced and What we learned
-Implementing Smart Contracts and building and NFT Marketplace.
-Integrating Stripe to accept payments for the NFTs(Web3 elements of the website).
-WalletConnect SDK to make our mobile app act as the wallet to the website.
+- Developed a clean experience that is super user-friendly for Web2 users, thus greatly reducing the barrier to entry.
+
+- Bringing Web2 and Web3 elements together on a single platform.
+
+- Use of ERC 1155 standard to provide non fungible aspect.
+
+- L2 scaling using Polygon for faster UX.
+
+- Decentralised storage using IPFS
+
+- Learning and using Alchemy and Scaffold-ETH.
+- 
+# Challenges we faced and What we learned
+
+- Implementing Smart Contracts and building and NFT Marketplace.
+
+- Integrating Stripe to accept payments for the NFTs(Web3 elements of the website).
+
+- WalletConnect SDK to make our mobile app act as the wallet to the website.
 
 # What's next for Creator Nation
-Feature Enhancements:
+1. Website completion and Feature Enhancements:
 
 Implementing Minting for Web2 users. Lazy Minting. Bidding functionality. Building a robust payout mechanism. Earnings Dashboard and Reports. Further simplifying the experience for Web2 users.
 
-Target a fixed number of Creators for a soft launch.
+2. Target a fixed number of Creators for a soft launch.
 
-Public Launch
+3. Public Launch
