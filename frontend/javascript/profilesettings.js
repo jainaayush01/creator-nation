@@ -111,6 +111,7 @@ if(user) {
             user.save()
                 .then((user) => {
                     console.log("UPDATED SUCCESSFULLY.");
+                    window.location.href = '/';
                 }, (error) => {
                     console.log("ERROR UPDATING DUE TO ", error);
                 })
