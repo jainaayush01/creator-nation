@@ -13,7 +13,7 @@ module.exports = {
       accounts: [process.env.PRIVATEKEY]
     },
     mumbai: {
-      url: 'https://polygon-mumbai.g.alchemy.com/v2/f-suHXrnx-xJMb_UM1ZLIl3TR6Q0XtvP',
+      url: 'https://matic-mumbai.chainstacklabs.com',
       accounts: [process.env.PRIVATEKEY]
     },
     rinkeby: {

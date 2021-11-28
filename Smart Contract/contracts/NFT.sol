@@ -66,7 +66,7 @@ contract CreatorNation is ERC1155, Ownable, ReentrancyGuard {
         uint256 total,
         string memory uri,
         string memory mediaUrl
-    ) public {
+    ) public returns (uint) {
         require(
             creatorTokens[creatorAddress].length < 6,
             "max of 6 Tokens only"
@@ -93,6 +93,7 @@ contract CreatorNation is ERC1155, Ownable, ReentrancyGuard {
         setApprovalForAll(address(this), true);
         tokensAvailable[id] = total;
         emit onMint(msg.sender, tokenName, id, cost, total);
+        return id;
     }
 
     // Marketplace Functions
