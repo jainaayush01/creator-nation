@@ -4,66 +4,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     var url = window.location.href;
     const urlParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlParams.entries());
-    // console.log(params)
-    // console.log(window.location)
-
-    async function checkWallet() {
-
-        try {
-            const { ethereum } = window;
-
-            if (!ethereum) {
-                console.log("metamask not installed")
-                document.querySelector('.buyCrypto').classList.add('hideBtn');
-                document.querySelector('.buyFiat').classList.remove('hideBtn');
-            } else {
-                console.log("eth obj is --> ", ethereum);
-                const accounts = await ethereum.request({ method: 'eth_accounts' });
-
-                if (accounts.length !== 0) {
-                    const account = accounts[0];
-                    console.log('Found an authorised account!', account);
-                    document.querySelector('.buyCrypto').classList.remove('hideBtn');
-                    document.querySelector('.buyFiat').classList.add('hideBtn');
-
-                } else {
-                    document.querySelector('.buyCrypto').classList.add('hideBtn');
-                    document.querySelector('.buyFiat').classList.remove('hideBtn');
-                    console.log('no authorised account found....');
-                }
-            }
-        } catch (err) {
-            console.log(err);
-        }
-
-
-    }
-
-
-
-    async function connectWallet() {
-        try {
-            const { ethereum } = window;
-
-            if (!ethereum) {
-                console.log('please install metamask');
-                document.querySelector('.buyCrypto').classList.add('hideBtn');
-                document.querySelector('.buyFiat').classList.remove('hideBtn');
-            } else {
-                const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-
-
-
-                // console.log("Connected", accounts[0]);
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-
-    checkWallet();
-    connectWallet();
 
     if (window.location.pathname.includes('product')) {
         const CreatorToken = Moralis.Object.extend('CreatorToken');
@@ -177,8 +117,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     }
 
-
-
     let paymentModal = document.querySelector("#payment-modal");
     let buyStripe = document.querySelector("#buyStripe");
     let close = document.querySelector(".close");
@@ -197,36 +135,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // let NFTContract;
-    // const getContractABI = async () => {
-    //     NFTContract = await fetch("../../Smart Contract/artifacts/contracts/NFT.sol/CreatorNation.json")
-    //         .then(res => res.json())
-    //         .catch(err => {
-    //             console.log(err);
-    //         });
-    //     console.log(NFTContract);
-    //     return;
-    // }
-    // getContractABI();
-
-    
     let buyCrypto = document.querySelector("#buyCrypto");
     buyCrypto.onclick = async () => {
         try {
-            const NFTContract = await fetch("../../Smart Contract/artifacts/contracts/NFT.sol/CreatorNation.json")
-                .then(res => res.json())
-                .catch(err => {
-                    console.log(err);
-                });
-            const NFTContractAddress = '0x36DF084988e0605C1e2C0329A1432d00d9bfB21f'
-            console.log(NFTContract);
-
-            
             let tokenPrice = document.querySelector("#tokenPrice").innerHTML;
             console.log(tokenPrice);
-            console.log({tokenPrice: parseInt(tokenPrice)});
+            console.log({ tokenPrice: parseInt(tokenPrice) });
 
-            let web3 = await Moralis.enableWeb3();
             // console.log(web3);
             // let contract = new web3.eth.Contract(NFTContract.abi, NFTContractAddress);
             // console.log(contract);
@@ -235,18 +150,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             // console.log(txn);
             // let txn = contract.methods.buyTokensUsingCrypto(1, 1).estimateGas({gas: 100000000000}, (err, gasAmount) => {
 
-            let options = {
-                contractAddress: NFTContractAddress,
-                abi: NFTContract.abi,
-                functionName: 'buyTokensUsingCrypto',
-                params: {
-                    _tokenId: 1,
-                    _amount: 1
-                },
-                msgValue: Moralis.Units.ETH("0.1") // tokenValue comes here from chainlink price feed smart contract
-            }
-            const buyTokens = await (Moralis.executeFunction(options));
-            console.log(buyTokens);
+            let buyTokensCrypto = CnContract.methods.buyTokensUsingCrypto(1, 1).send({ from: userAccount });
+            console.log(buyTokensCrypto);
+            // let options = {
+            //     contractAddress: NFTContractAddress,
+            //     abi: NFTContract.abi,
+            //     functionName: 'buyTokensUsingCrypto',
+            //     params: {
+            //         _tokenId: 1,
+            //         _amount: 1
+            //     },
+            //     msgValue: Moralis.Units.ETH("0.1") // tokenValue comes here from chainlink price feed smart contract
+            // }
+            // const buyTokens = await (Moralis.executeFunction(options));
+            // console.log(buyTokens);
         }
         catch (err) {
             console.log(err);

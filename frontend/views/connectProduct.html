@@ -2,138 +2,154 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous ">
-    </script>
-  <script src="https://js.stripe.com/v3/"></script>
-  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-  <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
-  <link rel="shortcut icon" href="../assets/CN_LOGO.png" />
-  <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../css/product.css">
-  <link rel="stylesheet" href="../css/payment.css">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous ">
+		</script>
+	<script src="https://js.stripe.com/v3/"></script>
+	<script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+	<script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+	<link rel="shortcut icon" href="../assets/CN_LOGO.png" />
+	<link rel="stylesheet" href="../css/main.css">
+	<link rel="stylesheet" href="../css/product.css">
+	<link rel="stylesheet" href="../css/payment.css">
 
-  <title>Creator Nation</title>
+	<title>Creator Nation</title>
 </head>
 
 <body>
-  <script>
-    Moralis.initialize("rDecx1uN0CRZ8QWRxqjDeWEdc9P9ozhtp5xJjH5v"); // APP ID
-    Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
-    async function logoutNow() {
+	<script>
+		Moralis.initialize("rDecx1uN0CRZ8QWRxqjDeWEdc9P9ozhtp5xJjH5v"); // APP ID
+		Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
+		async function logoutNow() {
 
-      await Moralis.User.logOut();
+			await Moralis.User.logOut();
 
-      window.location.assign("../index.html");
-    }
-  </script>
+			window.location.assign("../index.html");
+		}
+	</script>
 
-  <!-- Navbar Start -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" aria-current="page" href="../index.html">
-        <img src="../assets/CN_LOGO.png" alt="" width="50" height="50" class="d-inline-block align-text-middle">
-      </a>
-      <div class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search by Creator" id="searchbar">
-        <a href="javascript:searchUser()"><input type="submit" value="Search" class="btn btn-outline-danger" /></a>
-      </div>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="how-it-works.html">How it works</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="create.html">Create</a>
-          </li>
-        </ul>
-      </div>
+	<!-- Navbar Start -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" aria-current="page" href="../index.html">
+				<img src="../assets/CN_LOGO.png" alt="" width="50" height="50" class="d-inline-block align-text-middle">
+			</a>
+			<div class="d-flex">
+				<input class="form-control me-2" type="search" placeholder="Search by Creator" id="searchbar">
+				<a href="javascript:searchUser()"><input type="submit" value="Search"
+						class="btn btn-outline-danger" /></a>
+			</div>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link" href="how-it-works.html">How it works</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="create.html">Create</a>
+					</li>
+				</ul>
+			</div>
+			
+            <div id="prepare" >
+                <button class="btn btn-danger" id="btn-connect">
+                    Connect Mobile
+                </button>
+            </div>
 
-      <div id="signoutButton">
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            Profile
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a href="settings.html" class="dropdown-item">Creations</a></li>
-            <li><a href="settings.html" class="dropdown-item">Owned Items</a></li>
-            <li><a href="settings.html" class="dropdown-item">Earnings</a></li>
-            <li><a href="profilesettings.html" class="dropdown-item">Profile Settings</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a href="javascript:logoutNow()" class="dropdown-item">Logout</a></li>
-          </ul>
-        </div>
-      </div>
-      <div id="signinButton">
-        <a href="signin.html" id="signinProfileButton" type="button" class="btn btn-outline-danger">Sign In</a>
-      </div>
-    </div>
-    </div>
-  </nav>
-  <!-- Navbar End -->
+            <div id="connected" style="display: none">
+                <button class="btn btn-danger" id="btn-disconnect">
+                    Disconnect Mobile
+                </button>
+            </div>
+            &nbsp;
+
+			<div id="signoutButton">
+				<div class="btn-group">
+					<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+						aria-expanded="false">
+						Profile
+					</button>
+					<ul class="dropdown-menu dropdown-menu-end">
+						<li><a href="settings.html" class="dropdown-item">Creations</a></li>
+						<li><a href="settings.html" class="dropdown-item">Owned Items</a></li>
+						<li><a href="settings.html" class="dropdown-item">Earnings</a></li>
+						<li><a href="profilesettings.html" class="dropdown-item">Profile Settings</a></li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+						<li><a href="javascript:logoutNow()" class="dropdown-item">Logout</a></li>
+					</ul>
+				</div>
+			</div>
+			<div id="signinButton">
+				<a href="signin.html" id="signinProfileButton" type="button" class="btn btn-outline-danger">Sign In</a>
+			</div>
+		</div>
+		</div>
+	</nav>
+	<!-- Navbar End -->
 
 
-  <div class="row row-cols-1 row-cols-md-5 g-5" id="search_results" style="padding:20px;">
-  </div>
-  <br><br>
+	<div class="row row-cols-1 row-cols-md-5 g-5" id="search_results" style="padding:20px;">
+	</div>
+	<br><br>
 
 
-  <!-- Product Page Start -->
+	<!-- Product Page Start -->
 
-  <div class="product-container">
-    <div class="product-image">
-      <img class="productImageDisplay" src="../assets/CN_LOGO.png" alt="...">
-    </div>
-    <div class="product-text-section">
-      <h1 class="productName"> CN Collectible #234</h1>
-      <p class="currentBid">Asking Price</p>
-      <p></p>
-      <h4 class="description">Body</h4>
-      <h5 class="creatorName">Creator Name</h5>
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button"
-            role="tab" aria-controls="contact" aria-selected="false">Details</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab"
-            aria-controls="home" aria-selected="true">Owners</button>
-        </li>
-      </ul>
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-      </div>
-      <div class="d-grid gap-2 col-6 mx-auto">
-        <button class="btn btn-primary buyFiat" id="buyStripe" type="button">Buy Now Using Stripe</button>
-        <button class="btn btn-primary buyCrypto" type="button">Buy Now Using Crypto</button>
-      </div>
-    </div>
-  </div>
+	<div class="product-container">
+		<div class="product-image">
+			<img class="productImageDisplay" src="../assets/CN_LOGO.png" alt="...">
+		</div>
+		<div class="product-text-section">
+			<h1 class="productName"> CN Collectible #234</h1>
+			<p class="currentBid">Asking Price</p>
+			<p></p>
+			<h4 class="description">Body</h4>
+			<h5 class="creatorName">Creator Name</h5>
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item" role="presentation">
+					<button class="nav-link active" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact"
+						type="button" role="tab" aria-controls="contact" aria-selected="false">Details</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+						role="tab" aria-controls="home" aria-selected="true">Owners</button>
+				</li>
+			</ul>
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
+				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+			</div>
+			<div class="d-grid gap-2 col-6 mx-auto">
+				<button class="btn btn-primary buyFiat" id="buyStripe" type="button">Buy Now Using Stripe</button>
+				<button class="btn btn-primary buyCrypto" type="button">Buy Now Using Crypto</button>
+			</div>
+		</div>
+	</div>
 
-  <!-- Product Page End -->
-  <!-- Stripe Card Modal Starts -->
-  <div id="payment-modal">
-    <div id="payment-content">
-      <span class="close">&times;</span>
+	<!-- Product Page End -->
+	<!-- Stripe Card Modal Starts -->
+	<div id="payment-modal">
+		<div id="payment-content">
+			<span class="close">&times;</span>
 
-      <h1>Card Payment using Stripe</h1>
-      <!-- <p>
+			<h1>Card Payment using Stripe</h1>
+			<!-- <p>
       <h4>Try a <a class="link" href="https://stripe.com/docs/testing#cards" target="_blank">test card</a>:</h4>
       <div>
         <code>4242424242424242</code> (Visa)
@@ -150,65 +166,69 @@
       Use any future expiration, any 3 digit CVC, and any postal code.
     </p> -->
 
-      <form id="payment-form">
-        <label style="display: inline" for="name">
-          Name of the Card Holder
-        </label>
-        <input id="name" placeholder="John Doe" value="" required />
-        <label style="display: inline" for="token-price">
-          $
-        </label>
-        <input disabled id="payment-modal-token-price" value=""/>
+			<form id="payment-form">
+				<label style="display: inline" for="name">
+					Name of the Card Holder
+				</label>
+				<input id="name" placeholder="John Doe" value="" required />
+				<label style="display: inline" for="token-price">
+					$
+				</label>
+				<input disabled id="payment-modal-token-price" value="" />
 
-        <label for="card-element">
-          Card Details
-        </label>
-        <div id="card-element">
-        </div>
+				<label for="card-element">
+					Card Details
+				</label>
+				<div id="card-element">
+				</div>
 
-        <div id="card-errors" role="alert"></div>
+				<div id="card-errors" role="alert"></div>
 
-        <button id="submit">Pay</button>
-      </form>
+				<button id="submit">Pay</button>
+			</form>
 
-      <div id="messages" role="alert" style="display: none;"></div>
+			<div id="messages" role="alert" style="display: none;"></div>
 
-    </div>
-  </div>
+		</div>
+	</div>
 
-  <!-- Stripe Card Modal Ends -->
-
-
+	<!-- Stripe Card Modal Ends -->
 
 
-  <script>
-    window.fwSettings = {
-      'widget_id': 70000002336
-    };
-    ! function () {
-      if ("function " != typeof window.FreshworksWidget) {
-        var n = function () {
-          n.q.push(arguments)
-        };
-        n.q = [], window.FreshworksWidget = n
-      }
-    }()
-  </script>
-  <script>
-    const user = Moralis.User.current();
-    if (user) {
-      document.getElementById("signoutButton").style.display = "block";
-      document.getElementById("signinButton").style.display = "none";
-    } else {
 
-      document.getElementById("signinButton").style.display = "block";
-      document.getElementById("signoutButton").style.display = "none";
-    }
-  </script>
-  <script type='text/javascript' src='https://widget.freshworks.com/widgets/70000002336.js' async defer></script>
-  <script src="../javascript/search.js "></script>
-  <script src="../javascript/product.js "></script>
-  <script src="../javascript/payment.js "></script>
+
+	<script>
+		window.fwSettings = {
+			'widget_id': 70000002336
+		};
+		! function () {
+			if ("function " != typeof window.FreshworksWidget) {
+				var n = function () {
+					n.q.push(arguments)
+				};
+				n.q = [], window.FreshworksWidget = n
+			}
+		}()
+	</script>
+	<script>
+		const user = Moralis.User.current();
+		if (user) {
+			document.getElementById("signoutButton").style.display = "block";
+			document.getElementById("signinButton").style.display = "none";
+		} else {
+
+			document.getElementById("signinButton").style.display = "block";
+			document.getElementById("signoutButton").style.display = "none";
+		}
+	</script>
+	<script type="text/javascript" src="https://unpkg.com/web3@1.2.11/dist/web3.min.js"></script>
+	<script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.6.6/dist/umd/index.min.js"></script>
+	<script type="text/javascript" src="https://unpkg.com/@walletconnect/qrcode-modal@1.6.6/dist/umd/index.min.js"></script>	
+	<script type='text/javascript' src='https://widget.freshworks.com/widgets/70000002336.js' async defer></script>
+	<script src="../javascript/walletConnect.js"></script>
+	<script src="../javascript/search.js "></script>
+	<script src="../javascript/product.js "></script>
+	<script src="../javascript/payment.js "></script>
 
 </body>
 
