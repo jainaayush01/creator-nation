@@ -128,7 +128,7 @@ app.post('/create-payment-intent', async (req, res) => {
 
   const params = {
     payment_method_types: [paymentMethodType],
-    amount: amount*100*80,
+    amount: amount,
     currency: currency,
   }
 
