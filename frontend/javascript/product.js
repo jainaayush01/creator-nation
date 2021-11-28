@@ -18,6 +18,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const productImageDisplay = document.querySelector(".productImageDisplay");
 
                 const paymentModalTokenPrice = document.querySelector("#payment-modal-token-price");
+                console.log("TOKEN NAME ",queryResult.get('tokenName'))
+                console.log("Token Price ",queryResult.get('tokenPrice'))
+                console.log("Token Benefits ",queryResult.get('tokenBenefits'))
+                console.log("Token File ",queryResult.get('tokenFile'))
+                console.log("Token ID ",queryResult.get('tokenId'))
+                console.log("Token ID ",queryResult.id)
                 productName.innerHTML = queryResult.get('tokenName');
                 currentBid.innerHTML = '$' + '<div style="display: inline" id="tokenPrice">' + queryResult.get('tokenPrice') + '</div>';
                 description.innerHTML = queryResult.get('tokenBenefits');
