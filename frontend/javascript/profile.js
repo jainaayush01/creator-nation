@@ -23,7 +23,7 @@ query.find()
                 const profileCoverImgElement = document.querySelector('.cn-cover-image');
                 const profileUserName = document.querySelector(".profileName")
                 const profileUserBio = document.querySelector(".profileBio")
-                console.log(obj1)
+                console.log(obj1.get('profile_desc'))
 
                 if(!obj1.get('profile_cover')) {
                     profile.innerHTML = '<img class="cn-cover-image" src='+'"https://i.ytimg.com/vi/uFk0mgljtns/maxresdefault.jpg" ' +
@@ -35,7 +35,7 @@ query.find()
 
                 
                 profileUserName.innerText = userId;
-                profileUserBio.innerText = obj1.get("bio")
+                profileUserBio.innerText = obj1.get("profile_desc") || "Mysterious"
             }
         } catch (err) {
             console.log(err);
