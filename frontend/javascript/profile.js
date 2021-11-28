@@ -4,7 +4,6 @@ var url = window.location.href;
 const urlParams = new URLSearchParams(window.location.search);
 
 const userId = urlParams.get('userId');
-
 const User = Moralis.Object.extend('_User')
 
 const query = new Moralis.Query(User)
@@ -26,13 +25,13 @@ query.find()
                 const profileUserBio = document.querySelector(".profileBio")
                 console.log(obj1)
 
-                if(!obj1.get('userProfileCoverPicture')) {
+                if(!obj1.get('profile_cover')) {
                     profile.innerHTML = '<img class="cn-cover-image" src='+'"https://i.ytimg.com/vi/uFk0mgljtns/maxresdefault.jpg" ' +
                     '/>' + '<img class="cn-profile-image" src='+'"https://avatars.dicebear.com/api/miniavs/user.svg?mood[]=happy" '+
                     'width="136px" height="136px" />' + "<h1 class='profileName' style='text-align: center'>"+userId+"</h1>" + "<p class='profileBio' style='text-align: center'>Sample Bio</p>"
                 }
-                    profileImgElement.setAttribute("src", obj1.get("userProfilePicture")._url || "https://avatars.dicebear.com/api/miniavs/"+userProfileImageSlug+".svg?mood[]=happy");
-                    profileCoverImgElement.setAttribute("src", obj1.get("userProfileCoverPicture")._url || "https://i.ytimg.com/vi/uFk0mgljtns/maxresdefault.jpg");
+                    profileImgElement.setAttribute("src", obj1.get("profile_dp")._url || "https://avatars.dicebear.com/api/miniavs/"+userProfileImageSlug+".svg?mood[]=happy");
+                    profileCoverImgElement.setAttribute("src", obj1.get("profile_cover")._url || "https://i.ytimg.com/vi/uFk0mgljtns/maxresdefault.jpg");
 
                 
                 profileUserName.innerText = userId;
