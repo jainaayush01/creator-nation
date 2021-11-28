@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    Moralis.initialize("rDecx1uN0CRZ8QWRxqjDeWEdc9P9ozhtp5xJjH5v"); // APP ID
-    Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
+    Moralis.initialize("o7HX0V4MSHEZ1kV4p8Cc1c1v4AZdBoFh3tbL2rq3"); // APP ID
+    Moralis.serverURL = "https://whr4yd3prbrn.usemoralis.com:2053/server";
     var url = window.location.href;
     const urlParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlParams.entries());

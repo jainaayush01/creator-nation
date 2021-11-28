@@ -1,5 +1,5 @@
-Moralis.initialize("rDecx1uN0CRZ8QWRxqjDeWEdc9P9ozhtp5xJjH5v"); // APP ID
-Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
+Moralis.initialize("o7HX0V4MSHEZ1kV4p8Cc1c1v4AZdBoFh3tbL2rq3"); // APP ID
+Moralis.serverURL = "https://whr4yd3prbrn.usemoralis.com:2053/server";
 var url = window.location.href;
 const urlParams = new URLSearchParams(window.location.search);
 
@@ -42,8 +42,8 @@ getUser = async () => {
             creatorNationUrl.value = user.get('cn_url');
             // profileDP.value = user.get('profile_dp')._name;
             // profileCover.value = user.get('profile_cover')._name;
-            if(user.get('profile_desc'))
-            quill.setText(user.get('profile_desc'));
+            if (user.get('profile_desc'))
+                quill.setText(user.get('profile_desc'));
             profileExt.value = user.get('profile_ext');
         })
 }
@@ -63,7 +63,7 @@ getUser();
 //         for (let i = 0; i < result.length; i++) {
 //             const obj1 = result[i];
 //             console.log(obj1)
-            
+
 //             // $strm += "<div class=\" card_col_homepage \"><a href=\"profile.html?userId=" + obj1.get("username") + "\"> <div class=\" card \" id=\" individualcard \" style=\"text-align: center;\"><img src=\""+obj1.get('userProfilePicture')._url+"\" style=\"height:100px; width:100px; margin-left:80px;\"><br><h3>" + obj1.get('username') + "</h3></div></a></div>";
 //         }
 //     }catch(err) {
@@ -76,8 +76,8 @@ const setProfileSettings = async () => {
 
     const User = Moralis.Object.extend("_User");
     const userInstance = new User();
-    
-    userInstance.set("username",'testSampleName')
+
+    userInstance.set("username", 'testSampleName')
     await userInstance.save();
     console.log("user instance ", userInstance);
 
@@ -86,43 +86,43 @@ const setProfileSettings = async () => {
 // setProfileSettings(testProfile)
 
 
-if(user) {
+if (user) {
     // console.log(profileName.value, profileEmail.value, creatorNationUrl.value, 
     //     profileDP.value, profileCover.value, profileDesc.innerText.length, 
     //     profileExt.value)
     // if(profileName.value === "" && profileEmail.value === "" && profileDP.value === "" && profileCover.value === "") {
-// query.equalTo("username", !profileName.value)
-//         const item = await query.first();
-//         if(item) {
-//             item.set("username",profileName.value)
-//             await item.save()
-//         }
-        profileSubmitBtn.addEventListener("click", (e) => {
-            user.set("username",profileName.value);
-            user.set("email", profileEmail.value);
-            user.set("cn_url", creatorNationUrl.value);
-            if(profileDP.files.length)
+    // query.equalTo("username", !profileName.value)
+    //         const item = await query.first();
+    //         if(item) {
+    //             item.set("username",profileName.value)
+    //             await item.save()
+    //         }
+    profileSubmitBtn.addEventListener("click", (e) => {
+        user.set("username", profileName.value);
+        user.set("email", profileEmail.value);
+        user.set("cn_url", creatorNationUrl.value);
+        if (profileDP.files.length)
             user.set("profile_dp", new Moralis.File("avatar.jpg", profileDP.files[0]));
-            if(profileCover.files.length)
+        if (profileCover.files.length)
             user.set("profile_cover", new Moralis.File('cover.jpg', profileCover.files[0]));
-            user.set("profile_desc", quill.getText());
-            user.set("profile_ext", profileExt.value);
-            
-            user.save()
-                .then((user) => {
-                    console.log("UPDATED SUCCESSFULLY.");
-                    window.location.href = '/';
-                }, (error) => {
-                    console.log("ERROR UPDATING DUE TO ", error);
-                })
-            // console.log(profileName.value, profileEmail.value, 
-            //     creatorNationUrl.value, profileDP.value, profileCover.value, 
-            //     profileDesc.innerText.length, profileExt.value)
+        user.set("profile_desc", quill.getText());
+        user.set("profile_ext", profileExt.value);
 
-            e.preventDefault()
-        })
+        user.save()
+            .then((user) => {
+                console.log("UPDATED SUCCESSFULLY.");
+                window.location.href = '/';
+            }, (error) => {
+                console.log("ERROR UPDATING DUE TO ", error);
+            })
+        // console.log(profileName.value, profileEmail.value, 
+        //     creatorNationUrl.value, profileDP.value, profileCover.value, 
+        //     profileDesc.innerText.length, profileExt.value)
+
+        e.preventDefault()
+    })
     // }
-    
+
 }
 
 

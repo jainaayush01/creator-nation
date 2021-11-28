@@ -1,5 +1,5 @@
-Moralis.initialize("rDecx1uN0CRZ8QWRxqjDeWEdc9P9ozhtp5xJjH5v"); // APP ID
-Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
+Moralis.initialize("o7HX0V4MSHEZ1kV4p8Cc1c1v4AZdBoFh3tbL2rq3"); // APP ID
+Moralis.serverURL = "https://whr4yd3prbrn.usemoralis.com:2053/server";
 var url = window.location.href;
 const urlParams = new URLSearchParams(window.location.search);
 
@@ -25,15 +25,15 @@ query.find()
                 const profileUserBio = document.querySelector(".profileBio")
                 console.log(obj1.get('profile_desc'))
 
-                if(!obj1.get('profile_cover')) {
-                    profile.innerHTML = '<img class="cn-cover-image" src='+'"https://i.ytimg.com/vi/uFk0mgljtns/maxresdefault.jpg" ' +
-                    '/>' + '<img class="cn-profile-image" src='+'"https://avatars.dicebear.com/api/miniavs/user.svg?mood[]=happy" '+
-                    'width="136px" height="136px" />' + "<h1 class='profileName' style='text-align: center'>"+userId+"</h1>" + "<p class='profileBio' style='text-align: center'>Sample Bio</p>"
+                if (!obj1.get('profile_cover')) {
+                    profile.innerHTML = '<img class="cn-cover-image" src=' + '"https://i.ytimg.com/vi/uFk0mgljtns/maxresdefault.jpg" ' +
+                        '/>' + '<img class="cn-profile-image" src=' + '"https://avatars.dicebear.com/api/miniavs/user.svg?mood[]=happy" ' +
+                        'width="136px" height="136px" />' + "<h1 class='profileName' style='text-align: center'>" + userId + "</h1>" + "<p class='profileBio' style='text-align: center'>Sample Bio</p>"
                 }
-                    profileImgElement.setAttribute("src", obj1.get("profile_dp")._url || "https://avatars.dicebear.com/api/miniavs/"+userProfileImageSlug+".svg?mood[]=happy");
-                    profileCoverImgElement.setAttribute("src", obj1.get("profile_cover")._url || "https://i.ytimg.com/vi/uFk0mgljtns/maxresdefault.jpg");
+                profileImgElement.setAttribute("src", obj1.get("profile_dp")._url || "https://avatars.dicebear.com/api/miniavs/" + userProfileImageSlug + ".svg?mood[]=happy");
+                profileCoverImgElement.setAttribute("src", obj1.get("profile_cover")._url || "https://i.ytimg.com/vi/uFk0mgljtns/maxresdefault.jpg");
 
-                
+
                 profileUserName.innerText = userId;
                 profileUserBio.innerText = obj1.get("profile_desc") || "Mysterious"
             }

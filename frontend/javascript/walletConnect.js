@@ -1,5 +1,5 @@
-Moralis.initialize("rDecx1uN0CRZ8QWRxqjDeWEdc9P9ozhtp5xJjH5v"); // APP ID
-Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
+Moralis.initialize("o7HX0V4MSHEZ1kV4p8Cc1c1v4AZdBoFh3tbL2rq3"); // APP ID
+Moralis.serverURL = "https://whr4yd3prbrn.usemoralis.com:2053/server";
 var web3;
 var CnContract;
 var userAccount; // plz give me this
@@ -157,7 +157,7 @@ async function connectContract() {
   let NFTContractData = await res.json();
   let NFTContractAddress = '0x112f188EF9F51a47083F8DEf7419127420d83e5B'
   CnContract = new web3.eth.Contract(NFTContractData.abi, NFTContractAddress);
-  
+
   res = await fetch("../artifacts/contracts/ChainlinkPriceFeed.sol/MaticPrice.json")
   let ChainlinkContractData = await res.json();
   let ChainlinkContractAddress = '0x5Ed9Cc3b18e2d3F3C3863571740F79dBc45A48dA'

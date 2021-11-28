@@ -1,5 +1,5 @@
-Moralis.initialize("rDecx1uN0CRZ8QWRxqjDeWEdc9P9ozhtp5xJjH5v"); // APP ID
-Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
+Moralis.initialize("o7HX0V4MSHEZ1kV4p8Cc1c1v4AZdBoFh3tbL2rq3"); // APP ID
+Moralis.serverURL = "https://whr4yd3prbrn.usemoralis.com:2053/server";
 
 async function logoutNow() {
     await Moralis.User.logOut();
@@ -11,7 +11,7 @@ async function searchUser() {
         $str = document.getElementById("searchbar").value;
         if ($str.length > 0) {
             window.sessionStorage.setItem("search_data", $str);
-            window.location.assign("profile.html?userId="+$str);
+            window.location.assign("profile.html?userId=" + $str);
         } else {
             alert("Please Enter Value for search");
         }

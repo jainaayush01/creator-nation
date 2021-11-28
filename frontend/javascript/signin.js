@@ -1,5 +1,5 @@
-Moralis.initialize("rDecx1uN0CRZ8QWRxqjDeWEdc9P9ozhtp5xJjH5v"); // APP ID
-Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
+Moralis.initialize("o7HX0V4MSHEZ1kV4p8Cc1c1v4AZdBoFh3tbL2rq3"); // APP ID
+Moralis.serverURL = "https://whr4yd3prbrn.usemoralis.com:2053/server";
 
 const appHeaderContainer = document.getElementById("app-header-btns");
 const contentContainer = document.getElementById("content");
@@ -14,11 +14,11 @@ async function loginWithMetaMask() {
     let user = Moralis.User.current();
     if (!user) {
         try {
-           user = await Moralis.authenticate({ signingMessage: "Creator Nation Authentication" })
-           console.log(user)
-           console.log(user.get('ethAddress'))
-        } catch(error) {
-          console.log(error)
+            user = await Moralis.authenticate({ signingMessage: "Creator Nation Authentication" })
+            console.log(user)
+            console.log(user.get('ethAddress'))
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -70,7 +70,7 @@ async function loginWithEmail(isSignUp) {
 }
 
 function listenForAccountChange() {
-    Moralis.Web3.onAccountsChanged(async function(accounts) {
+    Moralis.Web3.onAccountsChanged(async function (accounts) {
         console.log("account changed:", accounts);
         const user = Moralis.User.current();
         if (!user || !accounts.length) {
@@ -219,11 +219,11 @@ function buildLoginComponent(isSignUp = false) {
 function renderLogin(isSignUp) {
     contentContainer.innerHTML = buildLoginComponent(isSignUp);
     document.getElementById("btn-login-metamask").onclick = loginWithMetaMask;
-    document.getElementById("btn-login-username").onclick = function() {
+    document.getElementById("btn-login-username").onclick = function () {
         loginWithEmail(isSignUp);
     };
     if (!isSignUp) {
-        document.getElementById("btn-login-username-signup").onclick = function() {
+        document.getElementById("btn-login-username-signup").onclick = function () {
             loginWithEmail(true);
         };
     }
@@ -231,9 +231,9 @@ function renderLogin(isSignUp) {
 
 function getAddressTxt(address) {
     return `${address.substr(0, 4)}...${address.substr(
-    address.length - 4,
-    address.length
-  )}`;
+        address.length - 4,
+        address.length
+    )}`;
 }
 
 function buildProfileComponent(user) {
@@ -243,7 +243,7 @@ function buildProfileComponent(user) {
         <div class="form-group">
           <label for="name">Username</label>
           <input type="text" id="name" value="${user.attributes.username || ""
-    }"/>
+        }"/>
         </div>
         <div class="form-group">
           <label for="bio">Bio</label>
@@ -269,7 +269,7 @@ function buildAddrListComponent(user) {
     let addressItems = "";
     if (user.attributes.accounts && user.attributes.accounts.length) {
         addressItems = user.attributes.accounts
-            .map(function(account) {
+            .map(function (account) {
                 return `<li>
           <button class="btn-addr btn-remove" type="button" data-addr="${account}">X</button>
           ${getAddressTxt(account)}
@@ -300,7 +300,7 @@ function renderProfile(user) {
     contentContainer.innerHTML = buildProfileComponent(user);
     document.getElementById("btn-profile-set-pass").onclick = onSetPassword;
     document.getElementById("btn-profile-save").onclick = onSaveProfile;
-    document.querySelectorAll(".btn-remove").forEach(function(button) {
+    document.querySelectorAll(".btn-remove").forEach(function (button) {
         button.onclick = onUnlinkAddress;
     });
 
