@@ -3,7 +3,7 @@
 # Links:
 Website: http://creatornation.net/
 
-Android App(Forked from alpha wallet): https://drive.google.com/file/d/1qZ9Ldwd2qMbD6nDm5z1C4jieaMZK08cV/view?usp=sharing
+Android App(Forked and modified from alpha wallet): https://drive.google.com/file/d/1qZ9Ldwd2qMbD6nDm5z1C4jieaMZK08cV/view?usp=sharing
 
 # Mission Statement
 Our mission is to empower Content Creators and Businesses to fund their passion with the best monetisation options from Web2 and Web3.
