@@ -1,5 +1,5 @@
-Moralis.initialize("rDecx1uN0CRZ8QWRxqjDeWEdc9P9ozhtp5xJjH5v"); // APP ID
-Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
+Moralis.initialize("o7HX0V4MSHEZ1kV4p8Cc1c1v4AZdBoFh3tbL2rq3"); // APP ID
+Moralis.serverURL = "https://whr4yd3prbrn.usemoralis.com:2053/server";
 
 async function logoutNow() {
     await Moralis.User.logOut();
@@ -15,7 +15,7 @@ if (rtype != null) {
     // query.fullText('username', $str + "");
     // query.equalTo("email", $str);
     query.find()
-        .then(function(results) {
+        .then(function (results) {
             // alert(JSON.stringify(results));
 
             try {
@@ -36,7 +36,7 @@ if (rtype != null) {
                 alert($e + "bkp");
             }
         })
-        .catch(function(error) {
+        .catch(function (error) {
             alert(JSON.stringify(error));
         });
 }
@@ -77,6 +77,6 @@ async function createNow() {
     }
 
     await connect.save();
-    window.location.assign("../index.html");
+    window.location.assign("./settings.html");
 
 }

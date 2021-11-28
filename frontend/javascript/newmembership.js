@@ -72,6 +72,6 @@ async function createNow() {
     }
 
     await membership.save();
-    window.location.assign("../index.html");
+    window.location.assign("./settings.html");
 
 }
