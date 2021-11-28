@@ -9,18 +9,53 @@ const urlParams = new URLSearchParams(window.location.search);
 
 // console.log(user)
 // query.equalTo("objectId",user.id)
-console.log(user.id)
+// console.log(user.id)
+// console.log(Moralis.User.current())
+
+const profileName = document.querySelector("#profileName");
+const profileEmail = document.querySelector("#profileEmail");
+const creatorNationUrl = document.querySelector("#CN-url");
+const profileDP = document.querySelector("#profileDP");
+const profileCover = document.querySelector("#profileCover");
+const profileDesc = document.querySelector(".ql-editor p");
+const profileExt = document.querySelector("#profileExt");
+var profileSubmitBtn = document.querySelector("#formGroupSubmit")
 
 let testProfile;
-
-getUsers = async () => {
-const query = new Moralis.Query("_User");
-query.equalTo("objectId",user.id)
-const users = await query.find()
-testProfile = users
-console.log(users)
+getUser = async () => {
+    const userData = Moralis.Object.extend("_User");
+    const query = new Moralis.Query(userData);
+    // const query = new Moralis.Query("_User");
+    // query.equalTo("objectId",user.id);
+    // const users = await query.find();
+    // ("Successfully retrieved " + users.length + " users.");
+    // testProfile = users;
+    // console.log("++++++++++ ", users[0]);
+    query.get(user.id)
+        .then((user) => {
+            // console.log("++++++++++++++++++++++++++++++++++++++ ", user.get('profile_dp'))
+            // console.log("++++++++++++++++++++++++++++++++++++++ ", user.get('profile_desc'))
+            // console.log(quill)
+            testProfile = user;
+            profileName.value = user.get('username');
+            profileEmail.value = user.get('email');
+            creatorNationUrl.value = user.get('cn_url');
+            // profileDP.value = user.get('profile_dp')._name;
+            // profileCover.value = user.get('profile_cover')._name;
+            if(user.get('profile_desc'))
+            quill.setText(user.get('profile_desc'));
+            profileExt.value = user.get('profile_ext');
+        })
 }
 
+getUser();
+// saveUser = async () => {
+//     console.log($(profileName).val());
+// }
+
+// setFormValues = async (user) => {
+//     console.log($(profileName).val());
+// }
 
 // query.find()
 // .then((result) => {
@@ -44,25 +79,17 @@ const setProfileSettings = async () => {
     
     userInstance.set("username",'testSampleName')
     await userInstance.save();
-     console.log(userInstance);
+    console.log("user instance ", userInstance);
 
 }
 
 // setProfileSettings(testProfile)
 
 
-const profileName = document.querySelector("#profileName");
-const profileEmail = document.querySelector("#profileEmail");
-const creatorNationUrl = document.querySelector("#CN-url");
-const profileDP = document.querySelector("#profileDP");
-const profileCover = document.querySelector("#profileCover");
-const profileDesc = document.querySelector(".ql-editor p");
-const profileExt = document.querySelector("#profileExt");
-var profileSubmitBtn = document.querySelector("#formGroupSubmit")
-
-
 if(user) {
-    console.log(profileName.value, profileEmail.value, creatorNationUrl.value, profileDP.value, profileCover.value, profileDesc.innerText.length, profileExt.value)
+    // console.log(profileName.value, profileEmail.value, creatorNationUrl.value, 
+    //     profileDP.value, profileCover.value, profileDesc.innerText.length, 
+    //     profileExt.value)
     // if(profileName.value === "" && profileEmail.value === "" && profileDP.value === "" && profileCover.value === "") {
 // query.equalTo("username", !profileName.value)
 //         const item = await query.first();
@@ -71,10 +98,25 @@ if(user) {
 //             await item.save()
 //         }
         profileSubmitBtn.addEventListener("click", (e) => {
-            user.set("username",profileName.value)
+            user.set("username",profileName.value);
             user.set("email", profileEmail.value);
+            user.set("cn_url", creatorNationUrl.value);
+            if(profileDP.files.length)
+            user.set("profile_dp", new Moralis.File("avatar.jpg", profileDP.files[0]));
+            if(profileCover.files.length)
+            user.set("profile_cover", new Moralis.File('cover.jpg', profileCover.files[0]));
+            user.set("profile_desc", quill.getText());
+            user.set("profile_ext", profileExt.value);
             
-    console.log(profileName.value, profileEmail.value, creatorNationUrl.value, profileDP.value, profileCover.value, profileDesc.innerText.length, profileExt.value)
+            user.save()
+                .then((user) => {
+                    console.log("UPDATED SUCCESSFULLY.");
+                }, (error) => {
+                    console.log("ERROR UPDATING DUE TO ", error);
+                })
+            // console.log(profileName.value, profileEmail.value, 
+            //     creatorNationUrl.value, profileDP.value, profileCover.value, 
+            //     profileDesc.innerText.length, profileExt.value)
 
             e.preventDefault()
         })
