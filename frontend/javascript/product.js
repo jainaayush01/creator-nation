@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 let maticPrice = 1000;
                 let maticPrice2 = await ChainlinkContract.methods.getLatestPrice().call();
                 console.log(maticPrice2);
-                const priceInUSD = x => parseFloat(x.toNumber() / Math.pow(10, 8));
+                const priceInUSD = x => parseFloat(x / Math.pow(10, 8));
                 console.log(priceInUSD(maticPrice2))
 
                 let buyTokensCrypto = await CnContract.methods.buyTokensUsingCrypto(tokenId, 1).send({ from: userAccount, value: web3.utils.toWei((tokenPrice/priceInUSD(maticPrice2)).toString(), "ether")});
