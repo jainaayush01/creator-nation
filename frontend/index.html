@@ -285,27 +285,27 @@
         Moralis.serverURL = "https://onln8a9c8sry.bigmoralis.com:2053/server";
 
       
-        async function searchUser() {
-            try {
-                $str = document.getElementById("searchbar").value;
-                if ($str.length > 0) {
-                    window.sessionStorage.setItem("search_data", $str);
-                    window.location.assign("views/search.html");
+        // async function searchUser() {
+        //     try {
+        //         $str = document.getElementById("searchbar").value;
+        //         if ($str.length > 0) {
+        //             window.sessionStorage.setItem("search_data", $str);
+        //             window.location.assign("views/profile.html");
 
-                } else {
-                    alert("Please Enter Value for search");
-                }
-            } catch ($e) {
-                alert($e + "");
-            }
-        }
+        //         } else {
+        //             alert("Please Enter Value for search");
+        //         }
+        //     } catch ($e) {
+        //         alert($e + "");
+        //     }
+        // }
     </script>
     <script type="text/javascript" src="https://unpkg.com/web3@1.2.11/dist/web3.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.6.6/dist/umd/index.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/@walletconnect/qrcode-modal@1.6.6/dist/umd/index.min.js"></script>
     <script type='text/javascript' src='https://widget.freshworks.com/widgets/70000002336.js' async defer></script>
     <!-- <script type="text/javascript"  src="https://www.jsdelivr.com/package/npm/@walletconnect/qrcode-modal"></script> -->
-    <!-- <script src="javascript/search.js "></script> -->
+    <script src="javascript/search.js "></script>
     <script type="module" src="javascript/walletConnect.js "></script>
 
 
