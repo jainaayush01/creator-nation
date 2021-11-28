@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 description.innerHTML = 'Activity Date: ' + queryResult.get('activityDate') + "Activity Limit: " + queryResult.get('activityLimitNum');
                 creatorName.innerHTML = params.userId
                 productImageDisplay.setAttribute('src', queryResult.get('activityFile')._url)
-                paymentModalTokenPrice.value = queryResult.get('licensingCost');
+                paymentModalTokenPrice.value = queryResult.get('activityCost');
 
                 console.log(queryResult);
                 // const productId = document.querySelector('.productId')

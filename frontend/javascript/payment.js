@@ -1,5 +1,5 @@
-// const BACKEND_URL = 'http://34.70.138.124';
-const BACKEND_URL = 'http://localhost:8080'
+const BACKEND_URL = 'http://34.70.138.124';
+// const BACKEND_URL = 'http://localhost:8080'
 const STRIPE_PUBLISHABLE_KEY = 'pk_test_51JbPGjSDIAUQ0zT7QrDZqVpznfVEDLAxQc0iM2lLdXpJ1bZMsdGkkNFW9sOpbeWuKNBqIYVERhc6zEoZDDfTuQUu00nUonCHip';
 
 // utils
@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (submitted) { return; }
         submitted = true;
         form.querySelector('#submit').disabled = true;
-
         const currentBid = document.querySelector('#payment-modal-token-price').value;
         const userEthAddress = localStorage.getItem('userEthAddress');
         const tokenId = parseInt(localStorage.getItem('tokenId'));
@@ -61,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 },
                 body: JSON.stringify({
                     currency: 'inr',
-                    amount: currentBid,
+                    amount: currentBid*100*80,
                     paymentMethodType: 'card',
                     userEthAddress: userEthAddress,
                     tokenId: tokenId,
