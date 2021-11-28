@@ -157,14 +157,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.assign("../index.html");
     }
     try {
-        let fetchAvailableNFTs = await CnContract.methods.fetchAvailableNFTs().call();
+        let fetchAvailableNFTs = await CnContract.methods.fetchAvailableNFTs().call({from: userAccount});
         console.log(fetchAvailableNFTs);
 
-        let fetchCreatedNFTs = await CnContract.methods.fetchCreatedNFTs().call();
+        let fetchCreatedNFTs = await CnContract.methods.fetchCreatedNFTs().call({from: userAccount});
         console.log(fetchCreatedNFTs);
         
-        let fetchBoughtNFTs = await CnContract.methods.fetchBoughtNFTs().call();
-        console.log(fetchAvailableNFTs);
+        let fetchBoughtNFTs = await CnContract.methods.fetchBoughtNFTs().call({from: userAccount});
+        console.log(fetchBoughtNFTs);
         // let options = {
         //     contractAddress: NFTContractAddress,
         //     abi: NFTContract.abi,

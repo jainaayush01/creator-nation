@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const query = new Moralis.Query(CreatorToken);
         query.get(params.objId)
             .then((queryResult) => {
+                // console.log());
                 const productName = document.querySelector('.productName')
                 const currentBid = document.querySelector('.currentBid')
                 const description = document.querySelector('.description')
@@ -34,7 +35,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.log(queryResult);
                 const productId = document.querySelector('.productId')
                 productId.innerHTML = '<div id="tokenId">' + queryResult.id + '</div>';
-                tokenId = queryResult.id;
+                tokenId = parseInt(queryResult.get('tokenId'));
+                localStorage.setItem('tokenId', tokenId);
             })
             .catch(err => {
                 console.log(err)
@@ -55,12 +57,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 description.innerHTML = queryResult.get('memTierCost');
                 creatorName.innerHTML = params.userId
                 productImageDisplay.setAttribute('src', queryResult.get('memTierImage')._url)
-                paymentModalTokenPrice.value = queryResult.get('tokenPrice');
+                paymentModalTokenPrice.value = queryResult.get('memTierCost');
 
                 console.log(queryResult);
                 // const productId = document.querySelector('.productId')
                 // productId.innerHTML = `<div id="tokenId">${queryResult.id}</div>`
-                tokenId = queryResult.id;
+                tokenId = parseInt(queryResult.get('tokenId'));
+                localStorage.setItem('tokenId', tokenId);
+
             })
             .catch(err => {
                 console.log(err)
@@ -82,11 +86,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 description.innerHTML = 'Licensing Type: ' + queryResult.get('licensingType') + "Licensing Agreement: " + queryResult.get('licensingAgreement');
                 creatorName.innerHTML = params.userId
                 productImageDisplay.setAttribute('src', queryResult.get('licensingFile')._url)
-                paymentModalTokenPrice.value = queryResult.get('tokenPrice');
+                paymentModalTokenPrice.value = queryResult.get('a');
                 console.log(queryResult);
                 // const productId = document.querySelector('.productId')
                 // productId.innerHTML = `<div id="tokenId">${queryResult.id}</div>`
-                tokenId = queryResult.id;
+                tokenId = parseInt(queryResult.get('tokenId'));
+                localStorage.setItem('tokenId', tokenId);
+
             })
             .catch(err => {
                 console.log(err)
@@ -108,12 +114,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 description.innerHTML = 'Activity Date: ' + queryResult.get('activityDate') + "Activity Limit: " + queryResult.get('activityLimitNum');
                 creatorName.innerHTML = params.userId
                 productImageDisplay.setAttribute('src', queryResult.get('activityFile')._url)
-                paymentModalTokenPrice.value = queryResult.get('tokenPrice');
+                paymentModalTokenPrice.value = queryResult.get('licensingCost');
 
                 console.log(queryResult);
                 // const productId = document.querySelector('.productId')
                 // productId.innerHTML = `<div id="tokenId">${queryResult.id}</div>`
-                tokenId = queryResult.id;
+                tokenId = parseInt(queryResult.get('tokenId'));
+                localStorage.setItem('tokenId', tokenId);
             })
             .catch(err => {
                 console.log(err)
@@ -146,7 +153,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 let tokenPrice = document.querySelector("#tokenPrice").innerHTML;
                 console.log(tokenPrice);
                 console.log({ tokenPrice: parseInt(tokenPrice) });
-                let buyTokensCrypto = CnContract.methods.buyTokensUsingCrypto(1, 1).send({ from: userAccount });
+                console.log(parseInt(tokenId))
+                let maticPrice = 1000;
+                let maticPrice2 = await ChainlinkContract.methods.getLatestPrice().call();
+                console.log(maticPrice2);
+                const priceInUSD = x => parseFloat(x.toNumber() / Math.pow(10, 8));
+                console.log(priceInUSD(maticPrice2))
+
+                let buyTokensCrypto = await CnContract.methods.buyTokensUsingCrypto(tokenId, 1).send({ from: userAccount, value: web3.utils.toWei((tokenPrice/priceInUSD(maticPrice2)).toString(), "ether")});
                 console.log(buyTokensCrypto);
             }
             else if (window.location.pathname.includes('membershipProduct')) {
@@ -168,11 +182,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 let tokenPrice = document.querySelector("#tokenPrice").innerHTML;
                 console.log(tokenPrice);
                 console.log(userAccount);
-                let maticPrice = 1000;
+                let maticPrice = 100;
                 let maticPrice2 = await ChainlinkContract.methods.getLatestPrice().call();
                 console.log(maticPrice2);
+                const priceInUSD = x => parseFloat(x / Math.pow(10, 8));
+                console.log(priceInUSD(maticPrice2))
+
                 try {
-                    let txn = await web3.eth.sendTransaction({ from: userAccount, to: tokenOwnerAddress, value: web3.utils.toWei((tokenPrice/maticPrice).toString(), "ether")});
+                    let txn = await web3.eth.sendTransaction({ from: userAccount, to: tokenOwnerAddress, value: web3.utils.toWei((tokenPrice/priceInUSD(maticPrice2)).toString(), "ether")});
                     console.log(txn);
                 }catch(err){
                     console.log(err);
@@ -183,11 +200,37 @@ document.addEventListener('DOMContentLoaded', async () => {
                 let tokenPrice = document.querySelector("#tokenPrice").innerHTML;
                 console.log(tokenPrice);
                 console.log({ tokenPrice: parseInt(tokenPrice) });
-                let buyTokensCrypto = CnContract.methods.buyTokensUsingCrypto(1, 1).send({ from: userAccount });
+                let buyTokensCrypto = CnContract.methods.buyTokensUsingCrypto(tokenId, 1).send({ from: userAccount, value: web3.utils.toWei((tokenPrice/priceInUSD(maticPrice2)).toString(), "ether") });
                 console.log(buyTokensCrypto);
             }
             else if (window.location.pathname.includes('connectProduct')) {
-                
+                let Connect = Moralis.Object.extend('Connect')
+                let query = new Moralis.Query(Connect);
+                query.equalTo("objectId", params.objId);
+                console.log(query);
+                let data = await query.find();
+                console.log(data);
+                let userId = data[0].get("username").id;
+                console.log(userId)
+                let User = Moralis.Object.extend('_User');
+                let userQuery = new Moralis.Query(User);
+                userQuery.equalTo("objectId", userId);
+                let userData = await userQuery.find();
+                console.log(userData);
+                let tokenOwnerAddress = userData[0].get("ethAddress");
+                console.log(tokenOwnerAddress);
+                let tokenPrice = document.querySelector("#tokenPrice").innerHTML;
+                console.log(tokenPrice);
+                console.log(userAccount);
+                let maticPrice = 100;
+                let maticPrice2 = await ChainlinkContract.methods.getLatestPrice().call();
+                console.log(maticPrice2);
+                try {
+                    let txn = await web3.eth.sendTransaction({ from: userAccount, to: tokenOwnerAddress, value: web3.utils.toWei((tokenPrice/priceInUSD(maticPrice2)).toString(), "ether")});
+                    console.log(txn);
+                }catch(err){
+                    console.log(err);
+                }
             }
 
         }

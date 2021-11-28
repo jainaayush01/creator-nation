@@ -153,14 +153,14 @@ async function connectMetaMask() {
 
 async function connectContract() {
   console.log("Conencting Contract...")
-  let res = await fetch("../../Smart Contract/artifacts/contracts/NFT.sol/CreatorNation.json")
+  let res = await fetch("../artifacts/contracts/NFT.sol/CreatorNation.json")
   let NFTContractData = await res.json();
-  let NFTContractAddress = '0xFfeD6cd9BDDF59F2b33C89a3edCFd365B0665451'
+  let NFTContractAddress = '0x112f188EF9F51a47083F8DEf7419127420d83e5B'
   CnContract = new web3.eth.Contract(NFTContractData.abi, NFTContractAddress);
   
-  res = await fetch("../../Smart Contract/artifacts/contracts/ChainlinkPriceFeed.sol/MaticPrice.json")
+  res = await fetch("../artifacts/contracts/ChainlinkPriceFeed.sol/MaticPrice.json")
   let ChainlinkContractData = await res.json();
-  let ChainlinkContractAddress = '0x7551fb823B1d050E9f483271deB3A54315a09250'
+  let ChainlinkContractAddress = '0x5Ed9Cc3b18e2d3F3C3863571740F79dBc45A48dA'
   ChainlinkContract = new web3.eth.Contract(ChainlinkContractData.abi, ChainlinkContractAddress);
 
   console.log("Contract Connected")

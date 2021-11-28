@@ -45,7 +45,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const currentBid = document.querySelector('#payment-modal-token-price').value;
         const userEthAddress = localStorage.getItem('userEthAddress');
-        const tokenId = document.querySelector("#tokenId")?.innerHTML;
+        const tokenId = parseInt(localStorage.getItem('tokenId'));
+        let productType = getProductType();
 
         console.log(currentBid);
         console.log(userEthAddress);
@@ -64,12 +65,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                     paymentMethodType: 'card',
                     userEthAddress: userEthAddress,
                     tokenId: tokenId,
-                    tokenNos: 1
+                    tokenNos: 1,
+                    productType: productType
                 }),
             }
-        ).then((r) => r.json())
-            .then((r) => console.log(r))
-            .catch(err => console.log(err));
+        ).then((r) => r.json());
 
         if (backendError) {
             addMessage(backendError.message);
@@ -104,4 +104,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         addMessage(`Payment ${paymentIntent.status}: ${paymentIntent.id}`);
     });
+    function getProductType() {
+        if (window.location.pathname.includes('product')) {
+            return 1;
+        }
+        else if (window.location.pathname.includes('membershipProduct')) {
+            return 0;
+        }
+        else if (window.location.pathname.includes('licensingProduct')) {
+            return 1;
+        }
+        else if (window.location.pathname.includes('connectProduct')) {
+            return 0;
+        }
+    }
 });

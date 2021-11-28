@@ -46,6 +46,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function createNow() {
         const NewToken = Moralis.Object.extend("CreatorToken");
         const token = new NewToken();
+        console.log(token);
+        console.log(token.id)
         var tokenQuill = quill.root.innerHTML.trim();
 
         $tokenId = document.getElementById("tokenID");
@@ -104,13 +106,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             // const contractURL = await (Moralis.executeFunction(options));
             // console.log(contractURL);
 
-            var tokenMint = CnContract.methods.mint(userAccount, tokenName, tokenPrice, tokenSupplyLimit, uri, mediaUrl).send({ from: userAccount });
+            var tokenMint = await CnContract.methods.mint(userAccount, tokenName, tokenPrice, tokenSupplyLimit, uri, mediaUrl).send({ from: userAccount });
             console.log(tokenMint);
+            console.log(tokenMint.events.onMint.returnValues.tokenID);
+            token.set('tokenId', tokenMint.events.onMint.returnValues.tokenID);
             await token.save();
-            window.location.assign("../index.html");
+            console.log(token);
+            console.log(token.tokenId);
+            // await CnContract.events.onMint((res) => {
+            //     // console.log({sender, tokenName, id, cost, total})
+            //     console.log(res);
+            // });
+            // console.log(cn);
+            // window.location.assign("../index.html");
         }
         catch (err) {
             console.log(err);
+            let see = await token.destroy();
+            console.log(see);
         }
 
     }
