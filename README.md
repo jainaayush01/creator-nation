@@ -68,7 +68,7 @@ A firm believer that the best products are those that deliver a truly excellent 
 - Decentralised storage using IPFS
 
 - Learning and using Alchemy and Scaffold-ETH.
-- 
+
 # Challenges we faced and What we learned
 
 - Implementing Smart Contracts and building and NFT Marketplace.
