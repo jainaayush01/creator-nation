@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 },
                 body: JSON.stringify({
                     currency: 'inr',
-                    amount: currentBid*100*80,
+                    amount: currentBid,
                     paymentMethodType: 'card',
                     userEthAddress: userEthAddress,
                     tokenId: tokenId,
