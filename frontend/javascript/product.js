@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             .catch(err => {
                 console.log(err)
             });
-    } else if (window.location.pathname.includes('membershipProduct')) {
+    } else if (window.location.pathname.includes('membershipproduct')) {
         const Memberships = Moralis.Object.extend('Memberships');
         const query = new Moralis.Query(Memberships);
         query.get(params.objId)
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.log(err)
             });
 
-    } else if (window.location.pathname.includes('licensingProduct')) {
+    } else if (window.location.pathname.includes('licensingproduct')) {
         const CollLicensing = Moralis.Object.extend('CollLicensing');
         const query = new Moralis.Query(CollLicensing);
         query.get(params.objId)
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.log(err)
             });
 
-    } else if (window.location.pathname.includes('connectProduct')) {
+    } else if (window.location.pathname.includes('connectproduct')) {
         const Connect = Moralis.Object.extend('Connect');
         const query = new Moralis.Query(Connect);
         query.get(params.objId)
