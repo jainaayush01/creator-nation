@@ -190,7 +190,7 @@ async function main() {
   // await sign();
   console.log(walletType);
   console.log(verifiedConnect)
-  if (window.location.pathname.includes('product') || window.location.pathname.includes('membershipProduct') || window.location.pathname.includes('licensingProduct') || window.location.pathname.includes('connectProduct')) {
+  if (window.location.pathname.includes('product') || window.location.pathname.includes('membershipproduct') || window.location.pathname.includes('licensingproduct') || window.location.pathname.includes('connectproduct')) {
     if (walletType == "METAMASK") {
       document.querySelector("#buyStripe").classList.add('hideBtn');
       document.querySelector("#buyCrypto").classList.remove('hideBtn');
