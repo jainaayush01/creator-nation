@@ -5,49 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlParams.entries());
     var tokenId;
-    if (window.location.pathname.includes('product')) {
-        const CreatorToken = Moralis.Object.extend('CreatorToken');
-        const query = new Moralis.Query(CreatorToken);
-        query.get(params.objId)
-            .then((queryResult) => {
-                // console.log());
-                const productName = document.querySelector('.productName')
-                const currentBid = document.querySelector('.currentBid')
-                const description = document.querySelector('.description')
-                const creatorName = document.querySelector('.creatorName')
-                const productImage = document.querySelector('.product-image')
-                const productImageDisplay = document.querySelector(".productImageDisplay");
-
-                const paymentModalTokenPrice = document.querySelector("#payment-modal-token-price");
-                console.log("TOKEN NAME ",queryResult.get('tokenName'))
-                console.log("Token Price ",queryResult.get('tokenPrice'))
-                console.log("Token Benefits ",queryResult.get('tokenBenefits'))
-                console.log("Token File ",queryResult.get('tokenFile'))
-                console.log("Token ID ",queryResult.get('tokenId'))
-                console.log("Token ID ",queryResult.id)
-                productName.innerHTML = queryResult.get('tokenName');
-                currentBid.innerHTML = '$' + '<div style="display: inline" id="tokenPrice">' + queryResult.get('tokenPrice') + '</div>';
-                description.innerHTML = queryResult.get('tokenBenefits');
-                creatorName.innerHTML = params.userId
-                console.log(queryResult.get('tokenFile')._url)
-                if (queryResult.get('tokenFile')._name.split('.')[1] === 'jpg' || queryResult.get('tokenFile')._name.split('.')[1] === 'png') {
-                    productImageDisplay.setAttribute('src', queryResult.get('tokenFile')._url)
-
-                } else {
-                    productImage.innerHTML = "<video controls> <source src=" + queryResult.get('tokenFile')._url + " type='video/mp4'></video>"
-                }
-                paymentModalTokenPrice.value = queryResult.get('tokenPrice');
-
-                console.log(queryResult);
-                const productId = document.querySelector('.productId')
-                productId.innerHTML = '<div id="tokenId">' + queryResult.id + '</div>';
-                tokenId = parseInt(queryResult.get('tokenId'));
-                localStorage.setItem('tokenId', tokenId);
-            })
-            .catch(err => {
-                console.log(err)
-            });
-    } else if (window.location.pathname.includes('membershipproduct')) {
+    if (window.location.pathname.includes('membershipproduct')) {
         const Memberships = Moralis.Object.extend('Memberships');
         const query = new Moralis.Query(Memberships);
         query.get(params.objId)
@@ -132,6 +90,48 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.log(err)
             });
 
+    } else if (window.location.pathname.includes('product')) {
+        const CreatorToken = Moralis.Object.extend('CreatorToken');
+        const query = new Moralis.Query(CreatorToken);
+        query.get(params.objId)
+            .then((queryResult) => {
+                // console.log());
+                const productName = document.querySelector('.productName')
+                const currentBid = document.querySelector('.currentBid')
+                const description = document.querySelector('.description')
+                const creatorName = document.querySelector('.creatorName')
+                const productImage = document.querySelector('.product-image')
+                const productImageDisplay = document.querySelector(".productImageDisplay");
+
+                const paymentModalTokenPrice = document.querySelector("#payment-modal-token-price");
+                console.log("TOKEN NAME ",queryResult.get('tokenName'))
+                console.log("Token Price ",queryResult.get('tokenPrice'))
+                console.log("Token Benefits ",queryResult.get('tokenBenefits'))
+                console.log("Token File ",queryResult.get('tokenFile'))
+                console.log("Token ID ",queryResult.get('tokenId'))
+                console.log("Token ID ",queryResult.id)
+                productName.innerHTML = queryResult.get('tokenName');
+                currentBid.innerHTML = '$' + '<div style="display: inline" id="tokenPrice">' + queryResult.get('tokenPrice') + '</div>';
+                description.innerHTML = queryResult.get('tokenBenefits');
+                creatorName.innerHTML = params.userId
+                console.log(queryResult.get('tokenFile')._url)
+                if (queryResult.get('tokenFile')._name.split('.')[1] === 'jpg' || queryResult.get('tokenFile')._name.split('.')[1] === 'png') {
+                    productImageDisplay.setAttribute('src', queryResult.get('tokenFile')._url)
+
+                } else {
+                    productImage.innerHTML = "<video controls> <source src=" + queryResult.get('tokenFile')._url + " type='video/mp4'></video>"
+                }
+                paymentModalTokenPrice.value = queryResult.get('tokenPrice');
+
+                console.log(queryResult);
+                const productId = document.querySelector('.productId')
+                productId.innerHTML = '<div id="tokenId">' + queryResult.id + '</div>';
+                tokenId = parseInt(queryResult.get('tokenId'));
+                localStorage.setItem('tokenId', tokenId);
+            })
+            .catch(err => {
+                console.log(err)
+            });
     }
 
     let paymentModal = document.querySelector("#payment-modal");
