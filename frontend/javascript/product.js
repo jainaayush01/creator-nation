@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 currentBid.innerHTML = '$' + '<div style="display: inline" id="tokenPrice">' + queryResult.get('memTierCost') + '</div>';
                 description.innerHTML = queryResult.get('memTierCost');
                 creatorName.innerHTML = params.userId
-                productImageDisplay.setAttribute('src', queryResult.get('memTierImage')._url)
                 paymentModalTokenPrice.value = queryResult.get('memTierCost');
 
                 console.log(queryResult);
@@ -28,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // productId.innerHTML = `<div id="tokenId">${queryResult.id}</div>`
                 tokenId = parseInt(queryResult.get('tokenId'));
                 localStorage.setItem('tokenId', tokenId);
-
+                productImageDisplay.setAttribute('src', queryResult.get('memTierImage')._url)
             })
             .catch(err => {
                 console.log(err)
@@ -49,14 +48,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 currentBid.innerHTML = '$' + '<div style="display: inline" id="tokenPrice">' + queryResult.get('licensingCost') + '</div>';
                 description.innerHTML = 'Licensing Type: ' + queryResult.get('licensingType') + "Licensing Agreement: " + queryResult.get('licensingAgreement');
                 creatorName.innerHTML = params.userId
-                productImageDisplay.setAttribute('src', queryResult.get('licensingFile')._url)
+                
                 paymentModalTokenPrice.value = queryResult.get('a');
                 console.log(queryResult);
                 // const productId = document.querySelector('.productId')
                 // productId.innerHTML = `<div id="tokenId">${queryResult.id}</div>`
                 tokenId = parseInt(queryResult.get('tokenId'));
                 localStorage.setItem('tokenId', tokenId);
-
+                productImageDisplay.setAttribute('src', queryResult.get('licensingFile')._url)
             })
             .catch(err => {
                 console.log(err)
@@ -77,14 +76,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 currentBid.innerHTML = '$' + '<div style="display: inline" id="tokenPrice">' + queryResult.get('activityCost') + '</div>';
                 description.innerHTML = 'Activity Date: ' + queryResult.get('activityDate') + "Activity Limit: " + queryResult.get('activityLimitNum');
                 creatorName.innerHTML = params.userId
-                productImageDisplay.setAttribute('src', queryResult.get('activityFile')._url)
                 paymentModalTokenPrice.value = queryResult.get('activityCost');
-
+                
                 console.log(queryResult);
                 // const productId = document.querySelector('.productId')
                 // productId.innerHTML = `<div id="tokenId">${queryResult.id}</div>`
                 tokenId = parseInt(queryResult.get('tokenId'));
                 localStorage.setItem('tokenId', tokenId);
+                productImageDisplay.setAttribute('src', queryResult.get('activityFile')._url)
             })
             .catch(err => {
                 console.log(err)
@@ -114,13 +113,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 currentBid.innerHTML = '$' + '<div style="display: inline" id="tokenPrice">' + queryResult.get('tokenPrice') + '</div>';
                 description.innerHTML = queryResult.get('tokenBenefits');
                 creatorName.innerHTML = params.userId
-                console.log(queryResult.get('tokenFile')._url)
-                if (queryResult.get('tokenFile')._name.split('.')[1] === 'jpg' || queryResult.get('tokenFile')._name.split('.')[1] === 'png') {
-                    productImageDisplay.setAttribute('src', queryResult.get('tokenFile')._url)
-
-                } else {
-                    productImage.innerHTML = "<video controls> <source src=" + queryResult.get('tokenFile')._url + " type='video/mp4'></video>"
-                }
                 paymentModalTokenPrice.value = queryResult.get('tokenPrice');
 
                 console.log(queryResult);
@@ -128,6 +120,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 productId.innerHTML = '<div id="tokenId">' + queryResult.id + '</div>';
                 tokenId = parseInt(queryResult.get('tokenId'));
                 localStorage.setItem('tokenId', tokenId);
+                console.log(queryResult.get('tokenFile')._url)
+                if (queryResult.get('tokenFile')._name.split('.')[1] === 'jpg' || queryResult.get('tokenFile')._name.split('.')[1] === 'png') {
+                    productImageDisplay.setAttribute('src', queryResult.get('tokenFile')._url)
+
+                } else {
+                    productImage.innerHTML = "<video controls> <source src=" + queryResult.get('tokenFile')._url + " type='video/mp4'></video>"
+                }
+
             })
             .catch(err => {
                 console.log(err)
